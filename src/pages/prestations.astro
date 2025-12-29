@@ -3,9 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../config/site';
 
 /**
- * Page Prestations - Architecture UX optimisée pour la conversion
+ * Page Prestations - Architecture UX optimisée pour la conversion (v2 Gemini)
  * Objectif: 4 demandes de RDV/semaine
- * Structure: Hero → Identification → Services → Rassurance → CTA → FAQ
+ * Structure: Hero → Accompagnements → Rassurance → Confiance → Thématiques → Témoignages → FAQ → CTA
  */
 
 const accompagnements = [
@@ -36,54 +36,14 @@ const accompagnements = [
 ];
 
 const problematiques = [
-  {
-    label: 'Anxiété & Stress',
-    href: '/ressources/anxiete-stress',
-    description: 'Comprendre ses mécanismes et retrouver la sérénité.',
-    color: 'coral',
-  },
-  {
-    label: 'Burn-out',
-    href: '/ressources/burn-out',
-    description: 'Reconnaître l\'épuisement et reconstruire son énergie.',
-    color: 'peach',
-  },
-  {
-    label: 'Confiance en soi',
-    href: '/ressources/confiance-en-soi',
-    description: 'Renforcer l\'estime de soi et dépasser le syndrome de l\'imposteur.',
-    color: 'blue',
-  },
-  {
-    label: 'Communication couple',
-    href: '/ressources/communication-couple',
-    description: 'Renouer le dialogue et mieux se comprendre.',
-    color: 'coral',
-  },
-  {
-    label: 'Deuil & Séparation',
-    href: '/ressources/deuil-separation',
-    description: 'Traverser la perte et se reconstruire à son rythme.',
-    color: 'blue',
-  },
-  {
-    label: 'Dépression',
-    href: '/ressources/depression',
-    description: 'Sortir de la spirale et retrouver goût à la vie.',
-    color: 'peach',
-  },
-  {
-    label: 'Thérapie de couple',
-    href: '/ressources/therapie-couple',
-    description: 'Surmonter les crises et retrouver une dynamique saine.',
-    color: 'coral',
-  },
-  {
-    label: 'Transitions de vie',
-    href: '/ressources/transitions-vie',
-    description: 'Accompagner les grands changements avec sérénité.',
-    color: 'blue',
-  },
+  { label: 'Anxiété & Stress', href: '/ressources/anxiete-stress' },
+  { label: 'Burn-out', href: '/ressources/burn-out' },
+  { label: 'Confiance en soi', href: '/ressources/confiance-en-soi' },
+  { label: 'Communication couple', href: '/ressources/communication-couple' },
+  { label: 'Deuil & Séparation', href: '/ressources/deuil-separation' },
+  { label: 'Dépression', href: '/ressources/depression' },
+  { label: 'Thérapie de couple', href: '/ressources/therapie-couple' },
+  { label: 'Transitions de vie', href: '/ressources/transitions-vie' },
 ];
 
 const etapes = [
@@ -101,6 +61,24 @@ const etapes = [
     num: '03',
     title: 'Un cadre confidentiel',
     text: 'Chaque échange est strictement confidentiel, protégé par le secret professionnel, pour garantir votre sécurité.',
+  },
+];
+
+const temoignages = [
+  {
+    text: "Le travail avec Charlotte m'a permis de traverser une période de burn-out avec beaucoup de bienveillance. Je me sens aujourd'hui plus serein et outillé pour gérer le stress.",
+    author: 'L.',
+    details: '42 ans, Lausanne',
+  },
+  {
+    text: "Après des mois à hésiter, j'ai enfin franchi le pas. Les séances en ligne me convenaient parfaitement. Charlotte a su créer un espace de confiance malgré la distance.",
+    author: 'M.',
+    details: '35 ans, Sion',
+  },
+  {
+    text: "La thérapie de couple nous a aidés à renouer le dialogue. On a appris à mieux communiquer et à se comprendre. Merci pour votre patience.",
+    author: 'S. & P.',
+    details: 'Martigny',
   },
 ];
 
@@ -158,63 +136,16 @@ const faqs = [
     </div>
   </section>
 
-  <!-- Section 2: Thématiques - Carousel horizontal -->
-  <section class="py-20 lg:py-28 bg-bg-alt overflow-hidden">
-    <div class="container">
-      <!-- Header style Looka -->
-      <div class="section-header">
-        <div class="header-left">
-          <span class="section-badge">Thématiques</span>
-          <h2 class="text-3xl lg:text-4xl mt-4">
-            Je vous accompagne<br />
-            <span class="text-secondary">dans ces situations</span>
-          </h2>
-        </div>
-        <a href="/ressources" class="see-all-link group">
-          <span>Voir tous les guides</span>
-          <span class="see-all-icon">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7v10"/>
-            </svg>
-          </span>
-        </a>
-      </div>
-
-      <!-- Carousel -->
-      <div class="carousel-wrapper">
-        <div class="carousel-track">
-          {problematiques.map((item) => (
-            <a href={item.href} class={`carousel-card carousel-card--${item.color}`}>
-              <div class="card-content">
-                <h3 class="card-title">{item.label}</h3>
-                <p class="card-description">{item.description}</p>
-                <span class="card-link">
-                  Lire le guide
-                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                  </svg>
-                </span>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
-
-      <!-- Scroll hint mobile -->
-      <p class="scroll-hint lg:hidden">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-4 h-4">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/>
-        </svg>
-        Glissez pour découvrir
-      </p>
-    </div>
-  </section>
-
-  <!-- Section 3: Accompagnements -->
-  <section class="py-20 lg:py-28">
+  <!-- Section 2: Accompagnements (remonté) -->
+  <section class="py-20 lg:py-28 bg-bg-alt">
     <div class="container">
       <div class="max-w-5xl mx-auto">
-        <h2 class="text-3xl lg:text-4xl text-center mb-16">Mes Accompagnements</h2>
+        <div class="text-center mb-16">
+          <h2 class="text-3xl lg:text-4xl mb-4">Mes Accompagnements</h2>
+          <p class="text-text-light text-lg max-w-2xl mx-auto">
+            Chaque parcours est unique. Je vous propose trois cadres pour vous accompagner.
+          </p>
+        </div>
 
         <div class="cards-grid">
           {accompagnements.map((service) => (
@@ -231,8 +162,8 @@ const faqs = [
                     <span class="price-duration">/ {service.duration}</span>
                   </div>
 
-                  <a href="/contact" class="card-cta group-hover:text-secondary">
-                    Choisir cet accompagnement
+                  <a href="#cta-final" class="card-cta group-hover:text-secondary">
+                    En savoir plus et prendre RDV
                     <svg class="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                     </svg>
@@ -251,8 +182,8 @@ const faqs = [
     </div>
   </section>
 
-  <!-- Section 4: Rassurance - Comment ça marche -->
-  <section class="py-20 lg:py-28 bg-bg-alt">
+  <!-- Section 3: Rassurance - Comment ça marche -->
+  <section class="py-20 lg:py-28">
     <div class="container">
       <div class="max-w-4xl mx-auto">
         <h2 class="text-3xl lg:text-4xl text-center mb-16">
@@ -273,43 +204,103 @@ const faqs = [
     </div>
   </section>
 
-  <!-- Section 5: CTA Final -->
-  <section class="py-24 lg:py-32">
+  <!-- Section 4: Badges de confiance -->
+  <section class="py-12 lg:py-16 bg-bg-alt">
     <div class="container">
-      <div class="max-w-2xl mx-auto text-center">
-        <img
-          src="/images/illustrations/hand-flower.png"
-          alt=""
-          class="w-32 h-auto mx-auto mb-8"
-          loading="lazy"
-          aria-hidden="true"
-        />
-        <h2 class="text-3xl lg:text-4xl mb-4">Prêt·e à faire le premier pas ?</h2>
-        <p class="text-text-light text-lg mb-10 leading-relaxed">
-          Je suis à votre disposition pour répondre à vos questions
-          ou pour convenir d'un premier rendez-vous.
-        </p>
-
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <a
-            href="/contact"
-            class="cta-button"
-          >
-            Prendre rendez-vous
-          </a>
-          <a
-            href={`mailto:${siteConfig.contact.email}`}
-            class="text-text-light hover:text-secondary transition-colors text-sm"
-          >
-            Vous avez une question ? M'envoyer un email
-          </a>
+      <div class="trust-badges">
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-8 h-8">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.746 3.746 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/>
+            </svg>
+          </div>
+          <div>
+            <p class="font-heading text-lg">Psychologue FSP</p>
+            <p class="text-sm text-text-muted">Fédération Suisse des Psychologues</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-8 h-8">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/>
+            </svg>
+          </div>
+          <div>
+            <p class="font-heading text-lg">Master en Psychologie</p>
+            <p class="text-sm text-text-muted">Université de Lausanne</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-8 h-8">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/>
+            </svg>
+          </div>
+          <div>
+            <p class="font-heading text-lg">Secret professionnel</p>
+            <p class="text-sm text-text-muted">Confidentialité garantie</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Section 6: FAQ -->
+  <!-- Section 5: Thématiques - Grille statique -->
+  <section class="py-20 lg:py-28">
+    <div class="container">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl lg:text-4xl mb-4">Quel que soit votre défi</h2>
+          <p class="text-text-light">
+            Explorez nos guides pour mieux comprendre ce que vous traversez.
+          </p>
+        </div>
+
+        <div class="themes-grid">
+          {problematiques.map((item) => (
+            <a href={item.href} class="theme-item group">
+              <span class="theme-label">{item.label}</span>
+              <svg class="theme-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+          ))}
+        </div>
+
+        <p class="text-center mt-8">
+          <a href="/ressources" class="text-secondary hover:underline">
+            Voir tous les guides &rarr;
+          </a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: Témoignages -->
   <section class="py-20 lg:py-28 bg-bg-alt">
+    <div class="container">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl lg:text-4xl text-center mb-16">
+          Ce qu'ils en disent
+        </h2>
+
+        <div class="testimonials-grid">
+          {temoignages.map((t) => (
+            <blockquote class="testimonial-card">
+              <p class="testimonial-text">"{t.text}"</p>
+              <footer class="testimonial-author">
+                <span class="author-name">{t.author}</span>
+                <span class="author-details">{t.details}</span>
+              </footer>
+            </blockquote>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 7: FAQ -->
+  <section class="py-20 lg:py-28">
     <div class="container">
       <div class="max-w-3xl mx-auto">
         <div class="text-center mb-12">
@@ -350,6 +341,41 @@ const faqs = [
       </div>
     </div>
   </section>
+
+  <!-- Section 8: CTA Final -->
+  <section id="cta-final" class="py-24 lg:py-32 bg-bg-alt">
+    <div class="container">
+      <div class="max-w-2xl mx-auto text-center">
+        <img
+          src="/images/illustrations/hand-flower.png"
+          alt=""
+          class="w-32 h-auto mx-auto mb-8"
+          loading="lazy"
+          aria-hidden="true"
+        />
+        <h2 class="text-3xl lg:text-4xl mb-4">Prêt·e à faire le premier pas ?</h2>
+        <p class="text-text-light text-lg mb-10 leading-relaxed">
+          Je suis à votre disposition pour répondre à vos questions
+          ou pour convenir d'un premier rendez-vous.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a
+            href="/contact"
+            class="cta-button"
+          >
+            Prendre rendez-vous
+          </a>
+          <a
+            href={`mailto:${siteConfig.contact.email}`}
+            class="text-text-light hover:text-secondary transition-colors text-sm"
+          >
+            Vous avez une question ? M'envoyer un email
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
@@ -374,208 +400,7 @@ const faqs = [
     }
   }
 
-  /* Section Header - Looka style */
-  .section-header {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    margin-bottom: 2.5rem;
-  }
-
-  @media (min-width: 768px) {
-    .section-header {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 3rem;
-    }
-  }
-
-  .section-badge {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background: rgba(228, 156, 149, 0.1);
-    border: 1px solid rgba(228, 156, 149, 0.3);
-    border-radius: 999px;
-    font-size: 0.8125rem;
-    color: var(--color-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .see-all-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 1.25rem;
-    background: var(--color-bg);
-    border: 1.5px solid var(--color-text);
-    border-radius: 999px;
-    font-size: 0.9375rem;
-    color: var(--color-text);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-  }
-
-  .see-all-link:hover {
-    background: var(--color-text);
-    color: var(--color-bg);
-  }
-
-  .see-all-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    background: var(--color-secondary);
-    border-radius: 50%;
-    color: white;
-    transition: transform 0.3s ease;
-  }
-
-  .see-all-icon svg {
-    width: 1rem;
-    height: 1rem;
-  }
-
-  .see-all-link:hover .see-all-icon {
-    transform: rotate(45deg);
-  }
-
-  /* Carousel - Section 2 */
-  .carousel-wrapper {
-    margin: 0 -1.5rem;
-    padding: 0 1.5rem;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-  }
-
-  .carousel-wrapper::-webkit-scrollbar {
-    display: none;
-  }
-
-  .carousel-track {
-    display: flex;
-    gap: 1.25rem;
-    padding-bottom: 1rem;
-  }
-
-  .carousel-card {
-    flex: 0 0 280px;
-    min-height: 220px;
-    border-radius: 1.25rem;
-    padding: 1.75rem;
-    text-decoration: none;
-    scroll-snap-align: start;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-  }
-
-  @media (min-width: 768px) {
-    .carousel-card {
-      flex: 0 0 320px;
-      min-height: 240px;
-    }
-  }
-
-  .carousel-card--coral {
-    background: linear-gradient(135deg, rgba(228, 156, 149, 0.15) 0%, rgba(228, 156, 149, 0.05) 100%);
-    border: 1px solid rgba(228, 156, 149, 0.25);
-  }
-
-  .carousel-card--peach {
-    background: linear-gradient(135deg, rgba(234, 192, 152, 0.15) 0%, rgba(234, 192, 152, 0.05) 100%);
-    border: 1px solid rgba(234, 192, 152, 0.25);
-  }
-
-  .carousel-card--blue {
-    background: linear-gradient(135deg, rgba(146, 171, 211, 0.15) 0%, rgba(146, 171, 211, 0.05) 100%);
-    border: 1px solid rgba(146, 171, 211, 0.25);
-  }
-
-  .carousel-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
-  }
-
-  .carousel-card--coral:hover {
-    border-color: var(--color-secondary);
-    background: linear-gradient(135deg, rgba(228, 156, 149, 0.25) 0%, rgba(228, 156, 149, 0.1) 100%);
-  }
-
-  .carousel-card--peach:hover {
-    border-color: var(--color-highlight);
-    background: linear-gradient(135deg, rgba(234, 192, 152, 0.25) 0%, rgba(234, 192, 152, 0.1) 100%);
-  }
-
-  .carousel-card--blue:hover {
-    border-color: var(--color-accent);
-    background: linear-gradient(135deg, rgba(146, 171, 211, 0.25) 0%, rgba(146, 171, 211, 0.1) 100%);
-  }
-
-  .card-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-
-  .card-title {
-    font-family: var(--font-heading);
-    font-size: 1.375rem;
-    font-weight: 500;
-    color: var(--color-text);
-    margin-bottom: 0.75rem;
-  }
-
-  .card-description {
-    font-size: 0.9375rem;
-    color: var(--color-text-light);
-    line-height: 1.6;
-    flex-grow: 1;
-  }
-
-  .card-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: 1.25rem;
-    font-size: 0.875rem;
-    color: var(--color-secondary);
-    transition: gap 0.3s ease;
-  }
-
-  .card-link svg {
-    width: 1rem;
-    height: 1rem;
-    transition: transform 0.3s ease;
-  }
-
-  .carousel-card:hover .card-link {
-    gap: 0.75rem;
-  }
-
-  .carousel-card:hover .card-link svg {
-    transform: translateX(4px);
-  }
-
-  .scroll-hint {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-top: 1.5rem;
-    font-size: 0.8125rem;
-    color: var(--color-text-muted);
-  }
-
-  /* Cards Grid - Section 3 */
+  /* Cards Grid - Section 2 */
   .cards-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -645,7 +470,7 @@ const faqs = [
     transition: color 0.3s ease;
   }
 
-  /* Steps Grid - Section 4 */
+  /* Steps Grid - Section 3 */
   .steps-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -679,7 +504,137 @@ const faqs = [
     margin-bottom: 0.5rem;
   }
 
-  /* CTA Button - Section 5 */
+  /* Trust Badges - Section 4 */
+  .trust-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 4xl;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .trust-badges {
+      flex-direction: row;
+      justify-content: center;
+      gap: 4rem;
+    }
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .trust-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    background: rgba(228, 156, 149, 0.1);
+    border-radius: 50%;
+    color: var(--color-secondary);
+    flex-shrink: 0;
+  }
+
+  /* Themes Grid - Section 5 */
+  .themes-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .themes-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .theme-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    background: var(--color-bg-alt);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 0.75rem;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: all 0.3s ease;
+  }
+
+  .theme-item:hover {
+    background: var(--color-secondary);
+    color: white;
+    border-color: var(--color-secondary);
+    transform: translateX(4px);
+  }
+
+  .theme-label {
+    font-size: 0.9375rem;
+  }
+
+  .theme-arrow {
+    width: 1.25rem;
+    height: 1.25rem;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+  }
+
+  .theme-item:hover .theme-arrow {
+    opacity: 1;
+    transform: translateX(4px);
+  }
+
+  /* Testimonials - Section 6 */
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .testimonials-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  .testimonial-card {
+    background: var(--color-bg);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 1rem;
+    padding: 1.75rem;
+  }
+
+  .testimonial-text {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--color-text-light);
+    font-style: italic;
+    margin-bottom: 1.25rem;
+  }
+
+  .testimonial-author {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .author-name {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  .author-details {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  /* CTA Button - Section 8 */
   .cta-button {
     display: inline-block;
     padding: 1rem 2.5rem;
@@ -695,7 +650,7 @@ const faqs = [
     color: white;
   }
 
-  /* FAQ Styles */
+  /* FAQ Styles - Section 7 */
   .faq-list {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
@@ -741,5 +696,10 @@ const faqs = [
     padding-bottom: 1.5rem;
     color: var(--color-text-light);
     line-height: 1.7;
+  }
+
+  /* Smooth scroll for anchor links */
+  html {
+    scroll-behavior: smooth;
   }
 </style>
