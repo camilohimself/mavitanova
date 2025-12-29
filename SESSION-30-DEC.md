@@ -5,6 +5,69 @@
 
 ---
 
+## Session du soir (30 déc, ~00h-01h)
+
+### 1. Fix Netlify Deployment
+
+**Problème** : Le site affichait une page blanche sur Netlify.
+
+**Cause** : Règle SPA redirect `from = "/*" to = "/index.html"` qui cassait les routes statiques Astro.
+
+**Solution** : Suppression de la règle redirect dans `netlify.toml`.
+
+### 2. Création des 4 Articles Manquants
+
+| URL | Titre | Thème |
+|-----|-------|-------|
+| `/ressources/confiance-en-soi` | Comment (re)construire la confiance en soi | Développement personnel |
+| `/ressources/deuil-separation` | Deuil et séparation : traverser la perte | Accompagnement du deuil |
+| `/ressources/depression` | Reconnaître les signes et trouver de l'aide | Santé mentale |
+| `/ressources/transitions-vie` | Traverser les changements avec sérénité | Transitions de vie |
+
+→ Hub `/ressources/index.astro` mis à jour avec les 4 nouveaux articles + icônes.
+
+### 3. Optimisation UX Complète - Audit Gemini
+
+Refonte de `/prestations` basée sur analyse CRO :
+
+**Nouvelle structure de page :**
+```
+1. Hero (accroche émotionnelle)
+2. Accompagnements (solutions - déplacé en 2e) + sous-titre humanisant
+3. Rassurance ("C'est normal de...")
+4. Trust Badges (FSP, Master, Secret professionnel) ← NEW
+5. Thématiques (grille statique 2 colonnes, ex-carousel)
+6. Témoignages (3 anonymisés : L. 42 ans, M. 35 ans, C. 58 ans) ← NEW
+7. FAQ (Alpine.js accordion)
+8. CTA Final avec id="cta-final"
+```
+
+**Changements clés :**
+- ✅ Sections réordonnées pour parcours émotionnel optimal
+- ✅ Carousel → Grille statique (meilleure accessibilité)
+- ✅ Section témoignages avec preuve sociale
+- ✅ Badges de confiance pour crédibilité
+- ✅ Tous les CTAs pointent vers `#cta-final` (smooth scroll)
+
+### 4. Commits de la session du soir
+
+```
+9c2bbd9 feat(prestations): Full UX/CRO optimization based on Gemini audit
+[commit précédent] feat: Create 4 missing articles + update ressources hub
+[commit précédent] fix(netlify): Remove SPA redirect breaking static routes
+```
+
+### 5. État actuel
+
+| Métrique | Valeur |
+|----------|--------|
+| Pages | 20 |
+| Build time | ~1.5s |
+| Déploiement | ✅ Netlify actif |
+| URL | https://mavitanova-website.netlify.app |
+
+---
+
 ## Résumé des changements (Session complète)
 
 ### 1. Stratégie SEO Content - Analyse Gemini
@@ -116,9 +179,9 @@ a498f23 feat(ux): Make problem tags clickable with links to articles
 ## Prochaines étapes
 
 ### Priorité haute
-- [ ] Déploiement Netlify (connecter repo)
+- [x] ~~Déploiement Netlify (connecter repo)~~ ✅ Done
 - [ ] Page À propos - refonte
-- [ ] Créer articles manquants (Confiance en soi, Deuil, Dépression)
+- [x] ~~Créer articles manquants (Confiance en soi, Deuil, Dépression, Transitions)~~ ✅ Done
 
 ### Priorité moyenne
 - [ ] Google Search Console
