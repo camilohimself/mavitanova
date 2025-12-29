@@ -11,31 +11,31 @@ const guides = [
     slug: 'anxiete-stress',
     title: 'Anxiété & Stress',
     description: 'Comprendre ses mécanismes et trouver des clés pour mieux vivre au quotidien.',
-    icon: '🌊',
+    icon: 'wave',
   },
   {
     slug: 'burn-out',
     title: 'Le burn-out',
     description: 'Reconnaître les signes avant l\'épuisement et agir à temps.',
-    icon: '🔥',
+    icon: 'flame',
   },
   {
     slug: 'therapie-couple',
     title: 'Thérapie de couple',
     description: 'Comment ça fonctionne ? Pour qui ? Ce qu\'il faut savoir.',
-    icon: '💕',
+    icon: 'hearts',
   },
   {
     slug: 'consultation-en-ligne',
     title: 'Consulter en ligne',
     description: 'Avantages et déroulement d\'une séance à distance.',
-    icon: '💻',
+    icon: 'laptop',
   },
   {
     slug: 'premiere-seance',
     title: 'Préparer sa première séance',
     description: 'Ce qu\'il faut savoir avant de commencer une thérapie.',
-    icon: '🌱',
+    icon: 'seedling',
   },
 ];
 
@@ -114,7 +114,34 @@ const faqs = [
         <div class="guides-grid">
           {guides.map((guide) => (
             <a href={`/ressources/${guide.slug}`} class="guide-card group">
-              <span class="guide-icon">{guide.icon}</span>
+              <span class="guide-icon">
+                {guide.icon === 'wave' && (
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-8 h-8">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.893 13.393l-1.135-1.135a2.252 2.252 0 01-.421-.585l-1.08-2.16a.414.414 0 00-.663-.107.827.827 0 01-.812.21l-1.273-.363a.89.89 0 00-.738 1.595l.587.39c.59.395.674 1.23.172 1.732l-.2.2c-.212.212-.33.498-.33.796v.41c0 .409-.11.809-.32 1.158l-1.315 2.191a2.11 2.11 0 01-1.81 1.025 1.055 1.055 0 01-1.055-1.055v-1.172c0-.92-.56-1.747-1.414-2.089l-.655-.261a2.25 2.25 0 01-1.383-2.46l.007-.042a2.25 2.25 0 01.29-.787l.09-.15a2.25 2.25 0 012.37-1.048l1.178.236a1.125 1.125 0 001.302-.795l.208-.73a1.125 1.125 0 00-.578-1.315l-.665-.332-.091.091a2.25 2.25 0 01-1.591.659h-.18c-.249 0-.487.1-.662.274a.931.931 0 01-1.458-1.137l1.411-2.353a2.25 2.25 0 00.286-.76m11.928 9.869A9 9 0 008.965 3.525m11.928 9.868A9 9 0 118.965 3.525"/>
+                  </svg>
+                )}
+                {guide.icon === 'flame' && (
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-8 h-8">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z"/>
+                  </svg>
+                )}
+                {guide.icon === 'hearts' && (
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-8 h-8">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                  </svg>
+                )}
+                {guide.icon === 'laptop' && (
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-8 h-8">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25"/>
+                  </svg>
+                )}
+                {guide.icon === 'seedling' && (
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-8 h-8">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"/>
+                  </svg>
+                )}
+              </span>
               <h3 class="text-xl font-heading mb-2 group-hover:text-secondary transition-colors">
                 {guide.title}
               </h3>
@@ -298,9 +325,14 @@ const faqs = [
   }
 
   .guide-icon {
-    display: block;
-    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
     margin-bottom: 1rem;
+    color: var(--color-secondary);
+    opacity: 0.8;
   }
 
   .guide-link {
