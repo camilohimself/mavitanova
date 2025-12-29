@@ -1,0 +1,207 @@
+---
+/**
+ * WhyOnline Section - Sticky Scroll (CSS native)
+ * Inspiré de looka-astro.netlify.app
+ * Utilise IntersectionObserver + position:sticky (pas de GSAP)
+ */
+
+const benefits = [
+  {
+    id: '01',
+    title: 'Depuis chez vous',
+    description: 'Consultez dans un environnement familier où vous vous sentez à l\'aise. Votre espace de confort devient votre espace thérapeutique.',
+    image: '/images/illustrations/hand-listening.png',
+  },
+  {
+    id: '02',
+    title: 'Horaires flexibles',
+    description: 'Consultations disponibles en journée ou en soirée. Nous trouvons ensemble le créneau qui s\'adapte à votre rythme de vie.',
+    image: '/images/illustrations/path-journey.png',
+  },
+  {
+    id: '03',
+    title: 'Confidentialité totale',
+    description: 'Un espace privé et sécurisé pour vous exprimer librement. La connexion est chiffrée, vos données protégées.',
+    image: '/images/illustrations/hands-connect.png',
+  },
+  {
+    id: '04',
+    title: 'Même efficacité',
+    description: 'Les études le confirment : la thérapie en ligne est aussi efficace qu\'en cabinet. L\'essentiel, c\'est notre relation.',
+    image: '/images/illustrations/brain-bloom.png',
+  },
+];
+---
+
+<section class="sticky-scroll-section py-16 lg:py-24 lg:pb-64" id="why-online">
+  <div class="container mx-auto px-4 max-w-6xl">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <span class="inline-block px-4 py-2 rounded-full border border-secondary text-secondary text-xs uppercase tracking-widest mb-4">
+        Thérapie en ligne
+      </span>
+      <h2 class="text-3xl lg:text-4xl">
+        Pourquoi choisir<br />
+        <span class="text-secondary">la consultation en ligne ?</span>
+      </h2>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="lg:flex lg:gap-16">
+      <!-- Left: Steps (scrollable) -->
+      <div class="steps-container lg:w-1/2 space-y-32 lg:space-y-48">
+        {benefits.map((b, index) => (
+          <div
+            class="step-item"
+            data-index={index}
+          >
+            <span class="step-number">{b.id}</span>
+            <h3 class="text-xl lg:text-2xl font-medium mt-2 mb-4">{b.title}</h3>
+            <p class="text-text-light text-lg leading-relaxed">{b.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Right: Sticky Image (Desktop) -->
+      <div class="hidden lg:block lg:w-1/2">
+        <div class="sticky top-32">
+          <div class="sticky-image-container relative rounded-3xl overflow-hidden bg-bg-alt flex items-center justify-center" style="height: calc(100vh - 10rem);">
+            {benefits.map((b, index) => (
+              <img
+                src={b.image}
+                alt={b.title}
+                class:list={[
+                  "step-image absolute inset-0 w-full h-full object-contain p-8 transition-all duration-500",
+                  index === 0 ? "opacity-100 scale-100" : "opacity-0 scale-95",
+                ]}
+                data-index={index}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile: Image visible avec le texte -->
+      <div class="lg:hidden order-first">
+        <div class="sticky top-20 z-10 mb-8">
+          <div class="relative rounded-2xl overflow-hidden aspect-square bg-bg-alt flex items-center justify-center">
+            {benefits.map((b, index) => (
+              <img
+                src={b.image}
+                alt={b.title}
+                class:list={[
+                  "step-image-mobile absolute inset-0 w-full h-full object-contain p-6 transition-all duration-500",
+                  index === 0 ? "opacity-100" : "opacity-0",
+                ]}
+                data-index={index}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .step-item {
+    opacity: 0.3;
+    transition: opacity 0.5s ease;
+  }
+
+  .step-item:first-child {
+    opacity: 1;
+  }
+
+  .step-item.active {
+    opacity: 1;
+  }
+
+  .step-number {
+    font-family: var(--font-heading);
+    font-size: clamp(4rem, 10vw, 6rem);
+    font-weight: 300;
+    color: var(--color-secondary);
+    opacity: 0.25;
+    line-height: 1;
+    display: block;
+  }
+</style>
+
+<script>
+  function initStickyScroll() {
+    const section = document.querySelector('.sticky-scroll-section');
+    if (!section) return;
+
+    const stepItems = section.querySelectorAll('.step-item');
+    const stepImages = section.querySelectorAll('.step-image');
+    const stepImagesMobile = section.querySelectorAll('.step-image-mobile');
+
+    let activeIndex = 0;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = parseInt(
+              (entry.target as HTMLElement).dataset.index || '0'
+            );
+            if (index !== activeIndex) {
+              activeIndex = index;
+              updateActiveStep(index);
+            }
+          }
+        });
+      },
+      {
+        rootMargin: '-35% 0px -35% 0px',
+        threshold: 0,
+      }
+    );
+
+    function updateActiveStep(index: number) {
+      // Update step items
+      stepItems.forEach((item, i) => {
+        item.classList.toggle('active', i === index);
+      });
+
+      // Update desktop images
+      stepImages.forEach((img, i) => {
+        if (i === index) {
+          img.classList.remove('opacity-0', 'scale-95');
+          img.classList.add('opacity-100', 'scale-100');
+        } else {
+          img.classList.remove('opacity-100', 'scale-100');
+          img.classList.add('opacity-0', 'scale-95');
+        }
+      });
+
+      // Update mobile images
+      stepImagesMobile.forEach((img, i) => {
+        if (i === index) {
+          img.classList.remove('opacity-0');
+          img.classList.add('opacity-100');
+        } else {
+          img.classList.remove('opacity-100');
+          img.classList.add('opacity-0');
+        }
+      });
+    }
+
+    // Initialize first step
+    updateActiveStep(0);
+
+    // Observe all step items
+    stepItems.forEach((item) => observer.observe(item));
+  }
+
+  // Initialize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initStickyScroll);
+  } else {
+    initStickyScroll();
+  }
+
+  // Re-init on Astro page transitions
+  document.addEventListener('astro:page-load', initStickyScroll);
+</script>

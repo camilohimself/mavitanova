@@ -1,0 +1,41 @@
+---
+interface Props {
+  variant?: 'default' | 'lavande' | 'outline';
+  class?: string;
+  href?: string;
+  padding?: 'sm' | 'md' | 'lg';
+}
+
+const {
+  variant = 'default',
+  class: className = '',
+  href,
+  padding = 'md',
+} = Astro.props;
+
+const Tag = href ? 'a' : 'div';
+
+const variantClasses = {
+  default: 'card',
+  lavande: 'card card-lavande',
+  outline: 'bg-transparent border-2 border-slate/20 rounded-xl',
+};
+
+const paddingClasses = {
+  sm: 'p-4',
+  md: 'p-6',
+  lg: 'p-8',
+};
+---
+
+<Tag
+  href={href}
+  class:list={[
+    variantClasses[variant],
+    paddingClasses[padding],
+    href && 'block',
+    className,
+  ]}
+>
+  <slot />
+</Tag>

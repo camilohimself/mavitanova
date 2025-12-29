@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const faqs = [
+  {
+    question: 'Quelle est la différence entre un psychologue et un psychiatre ?',
+    answer: 'Le psychiatre est médecin et peut prescrire des médicaments. Le psychologue a une formation universitaire en psychologie et propose un accompagnement par la parole. Les deux approches peuvent être complémentaires.',
+  },
+  {
+    question: 'Comment se déroule une première consultation ?',
+    answer: 'C\'est un moment pour faire connaissance. Vous m\'expliquez ce qui vous amène, je vous pose quelques questions pour mieux comprendre votre situation, et nous voyons ensemble si un accompagnement vous serait bénéfique.',
+  },
+  {
+    question: 'Combien de temps dure une thérapie ?',
+    answer: 'Cela varie selon les personnes et les objectifs. Certains viennent pour quelques séances sur une problématique précise, d\'autres pour un travail plus long. Nous faisons le point régulièrement.',
+  },
+  {
+    question: 'La consultation en ligne est-elle aussi efficace ?',
+    answer: 'Les recherches montrent que la thérapie en ligne est aussi efficace que le présentiel pour la plupart des problématiques. L\'essentiel est la qualité de la relation thérapeutique.',
+  },
+  {
+    question: 'Mes séances sont-elles remboursées ?',
+    answer: 'Les consultations psychologiques ne sont pas remboursées par l\'assurance de base. Certaines complémentaires peuvent prendre en charge une partie. Vérifiez auprès de votre assurance.',
+  },
+  {
+    question: 'Que faire en cas d\'urgence ?',
+    answer: 'En cas d\'urgence psychiatrique, contactez le 143 (La Main Tendue), le 144 (urgences médicales), ou rendez-vous aux urgences de l\'hôpital le plus proche.',
+  },
+];
+---
+
+<BaseLayout
+  title="Ressources"
+  description="Questions fréquentes sur la consultation psychologique et ressources utiles."
+>
+  <!-- Header avec illustration -->
+  <section class="py-20 lg:py-28 relative overflow-hidden">
+    <div class="container">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-sm text-text-muted uppercase tracking-wide mb-4">Ressources</p>
+          <h1 class="mb-6">Questions fréquentes</h1>
+          <p class="text-xl text-text-light leading-relaxed">
+            Des réponses aux questions que vous vous posez
+            peut-être avant de consulter.
+          </p>
+        </div>
+        <div class="hidden lg:flex justify-end">
+          <img
+            src="/images/illustrations/mind-tangled-new.png"
+            alt=""
+            class="w-full max-w-xs opacity-70"
+            loading="eager"
+            aria-hidden="true"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="pb-20 lg:pb-28">
+    <div class="container">
+      <div class="max-w-3xl">
+        <div class="space-y-10">
+          {faqs.map((faq) => (
+            <div class="border-b border-slate/10 pb-10 last:border-0">
+              <h2 class="text-xl font-heading font-medium mb-4">{faq.question}</h2>
+              <p class="text-text-light leading-relaxed">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA avec illustration -->
+  <section class="py-20 lg:py-28 bg-bg-alt">
+    <div class="container">
+      <div class="max-w-2xl mx-auto text-center">
+        <img
+          src="/images/illustrations/hand-flower.png"
+          alt=""
+          class="w-32 h-auto mx-auto mb-8 opacity-80"
+          loading="lazy"
+          aria-hidden="true"
+        />
+        <p class="text-text-light mb-6">
+          Une question qui n'est pas dans la liste ?
+        </p>
+        <a
+          href="/contact"
+          class="inline-block text-text border-b-2 border-secondary/40 pb-1 hover:border-secondary transition-colors duration-300"
+        >
+          Me contacter
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

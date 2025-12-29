@@ -1,0 +1,577 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+
+const prestations = [
+  {
+    id: 1,
+    title: 'Thérapie individuelle',
+    subtitle: 'Votre espace personnel',
+    description: 'Un espace pour explorer vos difficultés, comprendre vos émotions et trouver vos propres ressources. Chaque séance est adaptée à votre rythme et vos besoins.',
+    price: siteConfig.pricing.individual,
+    duration: '50 min',
+    features: ['Écoute bienveillante', 'Approche personnalisée', 'Suivi régulier'],
+  },
+  {
+    id: 2,
+    title: 'Consultation en ligne',
+    subtitle: 'La flexibilité à votre service',
+    description: 'La même qualité d\'écoute qu\'en cabinet, depuis le confort de votre domicile. Idéal pour les personnes avec des contraintes de déplacement ou d\'horaires.',
+    price: siteConfig.pricing.individual,
+    duration: '50 min',
+    features: ['Depuis chez vous', 'Horaires flexibles', 'Connexion sécurisée'],
+  },
+  {
+    id: 3,
+    title: 'Thérapie de couple',
+    subtitle: 'Renforcer votre lien',
+    description: 'Un accompagnement pour améliorer votre communication, traverser les crises ou simplement renforcer votre relation. Les deux partenaires sont accueillis sans jugement.',
+    price: siteConfig.pricing.couple,
+    duration: '75 min',
+    features: ['Communication', 'Gestion des conflits', 'Espace neutre'],
+  },
+  {
+    id: 4,
+    title: 'Chromothérapie',
+    subtitle: 'L\'énergie des couleurs',
+    description: 'Une approche complémentaire utilisant les couleurs pour favoriser le bien-être émotionnel et physique. Peut être intégrée aux séances ou proposée séparément.',
+    price: siteConfig.pricing.chromo,
+    duration: '45 min',
+    features: ['Approche holistique', 'Relaxation profonde', 'Équilibre énergétique'],
+  },
+];
+
+const faqs = [
+  {
+    question: 'Combien de séances sont nécessaires ?',
+    answer: 'Cela dépend de votre situation et de vos objectifs. Certaines personnes viennent pour quelques séances, d\'autres pour un accompagnement plus long. Nous évaluons ensemble régulièrement.',
+  },
+  {
+    question: 'La thérapie en ligne est-elle aussi efficace ?',
+    answer: 'Les études montrent que la thérapie en ligne est aussi efficace que la thérapie en présentiel pour la plupart des problématiques. L\'essentiel est la qualité de la relation thérapeutique.',
+  },
+  {
+    question: 'Comment se passe la première séance ?',
+    answer: 'C\'est un moment pour faire connaissance. Vous m\'expliquez ce qui vous amène, je vous présente ma façon de travailler, et nous voyons ensemble si nous souhaitons poursuivre.',
+  },
+  {
+    question: 'Quels moyens de paiement acceptez-vous ?',
+    answer: 'J\'accepte le paiement par TWINT ou en espèces. Le règlement se fait à la fin de chaque séance.',
+  },
+];
+---
+
+<BaseLayout
+  title="Prestations"
+  description="Consultations psychologiques : thérapie individuelle, en ligne, de couple et chromothérapie. Tarifs transparents."
+>
+  <!-- Header -->
+  <section class="py-20 lg:py-28 relative overflow-hidden">
+    <div class="container">
+      <div class="max-w-3xl mx-auto text-center">
+        <p class="text-sm text-secondary uppercase tracking-widest mb-4">Prestations</p>
+        <h1 class="mb-6">Accompagnement<br /><span class="text-secondary">personnalisé</span></h1>
+        <p class="text-xl text-text-light leading-relaxed">
+          Chaque parcours est unique. Découvrez les différentes formes
+          d'accompagnement que je propose.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prestations Timeline -->
+  <section class="pb-20 lg:pb-32 relative">
+    <!-- SVG Thread Line -->
+    <div class="thread-container">
+      <svg class="thread-svg" viewBox="0 0 100 1000" preserveAspectRatio="none">
+        <path
+          class="thread-path"
+          d="M50,0
+             C50,100 20,150 50,200
+             C80,250 80,300 50,350
+             C20,400 20,450 50,500
+             C80,550 80,600 50,650
+             C20,700 50,750 50,800
+             L50,1000"
+          fill="none"
+          stroke="url(#threadGradient)"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+        <defs>
+          <linearGradient id="threadGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#E49C95" stop-opacity="0.3" />
+            <stop offset="50%" stop-color="#E49C95" stop-opacity="0.6" />
+            <stop offset="100%" stop-color="#E49C95" stop-opacity="0.3" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="container relative z-10">
+      <div class="max-w-4xl mx-auto">
+        {prestations.map((prestation, index) => (
+          <div
+            class={`prestation-card ${index % 2 === 0 ? 'card-left' : 'card-right'}`}
+            data-index={index}
+          >
+            <!-- Node on the thread -->
+            <div class="thread-node">
+              <span class="node-number">0{prestation.id}</span>
+            </div>
+
+            <!-- Card content -->
+            <div class="card-content group">
+              <div class="card-header">
+                <div>
+                  <p class="text-sm text-secondary mb-1">{prestation.subtitle}</p>
+                  <h2 class="text-2xl lg:text-3xl font-heading">{prestation.title}</h2>
+                </div>
+                <div class="card-price">
+                  <span class="price-value">{prestation.price}</span>
+                  <span class="price-currency">{siteConfig.pricing.currency}</span>
+                  <p class="price-duration">{prestation.duration}</p>
+                </div>
+              </div>
+
+              <p class="card-description">{prestation.description}</p>
+
+              <!-- Features reveal on hover -->
+              <div class="card-features">
+                {prestation.features.map((feature) => (
+                  <span class="feature-tag">{feature}</span>
+                ))}
+              </div>
+
+              <!-- CTA -->
+              <a
+                href="/contact"
+                class="card-cta"
+              >
+                Réserver cette consultation
+                <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Note -->
+      <p class="max-w-2xl mx-auto mt-16 text-center text-sm text-text-muted">
+        Les consultations ne sont pas remboursées par l'assurance de base.
+        Certaines assurances complémentaires peuvent prendre en charge une partie des frais.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section class="py-20 lg:py-28 bg-bg-alt">
+    <div class="container">
+      <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-16">
+          <img
+            src="/images/illustrations/hand-listening.png"
+            alt=""
+            class="w-24 h-auto mx-auto mb-6 opacity-60"
+            aria-hidden="true"
+          />
+          <h2>Questions fréquentes</h2>
+        </div>
+
+        <div class="faq-list" x-data="{ openIndex: null }">
+          {faqs.map((faq, index) => (
+            <div class="faq-item">
+              <button
+                class="faq-trigger"
+                @click={`openIndex = openIndex === ${index} ? null : ${index}`}
+                :class={`{ 'is-open': openIndex === ${index} }`}
+              >
+                <span class="faq-question">{faq.question}</span>
+                <span class="faq-icon">
+                  <svg
+                    class="w-5 h-5 transition-transform duration-300"
+                    :class={`{ 'rotate-180': openIndex === ${index} }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </span>
+              </button>
+              <div
+                class="faq-content"
+                x-show={`openIndex === ${index}`}
+                x-collapse
+              >
+                <p class="faq-answer">{faq.answer}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="py-20 lg:py-28 relative overflow-hidden">
+    <div class="container">
+      <div class="max-w-2xl mx-auto text-center">
+        <img
+          src="/images/illustrations/hand-flower.png"
+          alt=""
+          class="w-40 h-auto mx-auto mb-10"
+          loading="lazy"
+          aria-hidden="true"
+        />
+        <h2 class="mb-4">Prêt·e à commencer ?</h2>
+        <p class="text-text-light mb-10 leading-relaxed">
+          La première consultation est sans engagement.
+          Elle nous permet de faire connaissance.
+        </p>
+        <a
+          href="/contact"
+          class="inline-block px-10 py-4 border border-secondary/30 rounded-full text-text hover:border-secondary hover:bg-secondary/5 transition-all duration-300"
+        >
+          Prendre rendez-vous
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Thread Container */
+  .thread-container {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .thread-svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .thread-path {
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+    animation: drawThread 3s ease-out forwards;
+  }
+
+  @keyframes drawThread {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* Prestation Cards */
+  .prestation-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    position: relative;
+  }
+
+  .prestation-card:last-child {
+    margin-bottom: 0;
+  }
+
+  .card-left {
+    flex-direction: row;
+  }
+
+  .card-right {
+    flex-direction: row-reverse;
+  }
+
+  .card-left .card-content {
+    margin-left: auto;
+    text-align: left;
+  }
+
+  .card-right .card-content {
+    margin-right: auto;
+    text-align: right;
+  }
+
+  .card-right .card-header {
+    flex-direction: row-reverse;
+  }
+
+  .card-right .card-features {
+    justify-content: flex-end;
+  }
+
+  .card-right .card-cta {
+    margin-left: auto;
+  }
+
+  /* Thread Node */
+  .thread-node {
+    position: absolute;
+    left: 50%;
+    top: 1.5rem;
+    transform: translateX(-50%);
+    width: 48px;
+    height: 48px;
+    background: var(--color-bg);
+    border: 2px solid var(--color-secondary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    transition: all 0.3s ease;
+  }
+
+  .prestation-card:hover .thread-node {
+    background: var(--color-secondary);
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .prestation-card:hover .node-number {
+    color: white;
+  }
+
+  .node-number {
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    color: var(--color-secondary);
+    transition: color 0.3s ease;
+  }
+
+  /* Card Content */
+  .card-content {
+    width: calc(50% - 4rem);
+    padding: 2rem;
+    background: var(--color-bg);
+    border-radius: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.4s ease;
+  }
+
+  .card-content:hover {
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-price {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .price-value {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    color: var(--color-text);
+  }
+
+  .price-currency {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .price-duration {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
+  }
+
+  .card-description {
+    color: var(--color-text-light);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Features */
+  .card-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+  }
+
+  .card-content:hover .card-features {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .feature-tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: var(--color-bg-alt);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    color: var(--color-text-light);
+  }
+
+  /* CTA */
+  .card-cta {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.875rem;
+    color: var(--color-secondary);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+  }
+
+  .card-content:hover .card-cta {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .card-cta:hover {
+    color: var(--color-secondary-dark);
+  }
+
+  /* FAQ Styles */
+  .faq-list {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .faq-item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .faq-trigger {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  .faq-trigger:hover {
+    color: var(--color-secondary);
+  }
+
+  .faq-question {
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    font-weight: 500;
+  }
+
+  .faq-icon {
+    flex-shrink: 0;
+    margin-left: 1rem;
+    color: var(--color-secondary);
+  }
+
+  .faq-content {
+    overflow: hidden;
+  }
+
+  .faq-answer {
+    padding-bottom: 1.5rem;
+    color: var(--color-text-light);
+    line-height: 1.7;
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 1024px) {
+    .thread-container {
+      display: none;
+    }
+
+    .prestation-card {
+      flex-direction: column !important;
+    }
+
+    .thread-node {
+      position: relative;
+      left: auto;
+      top: auto;
+      transform: none;
+      margin-bottom: 1rem;
+    }
+
+    .prestation-card:hover .thread-node {
+      transform: scale(1.1);
+    }
+
+    .card-content {
+      width: 100%;
+      text-align: left !important;
+    }
+
+    .card-header {
+      flex-direction: column !important;
+      gap: 0.5rem;
+    }
+
+    .card-price {
+      text-align: left !important;
+    }
+
+    .card-features {
+      justify-content: flex-start !important;
+      opacity: 1;
+      transform: none;
+    }
+
+    .card-cta {
+      opacity: 1;
+      transform: none;
+      margin-left: 0 !important;
+    }
+  }
+</style>
+
+<script>
+  // Scroll-triggered thread animation
+  document.addEventListener('DOMContentLoaded', () => {
+    const threadPath = document.querySelector('.thread-path');
+    if (!threadPath) return;
+
+    const pathLength = (threadPath as SVGPathElement).getTotalLength();
+
+    // Set initial state
+    (threadPath as SVGPathElement).style.strokeDasharray = `${pathLength}`;
+    (threadPath as SVGPathElement).style.strokeDashoffset = `${pathLength}`;
+
+    // Animate on scroll
+    const section = document.querySelector('.thread-container')?.parentElement;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Animate the thread
+            (threadPath as SVGPathElement).style.transition = 'stroke-dashoffset 2s ease-out';
+            (threadPath as SVGPathElement).style.strokeDashoffset = '0';
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(section);
+  });
+</script>

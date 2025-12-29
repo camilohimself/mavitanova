@@ -1,0 +1,166 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Prenez rendez-vous avec Charlotte Lagona, psychologue à Martigny. Consultations en ligne ou en cabinet."
+>
+  <section class="py-20 lg:py-28 relative overflow-hidden">
+    <!-- Illustration décorative -->
+    <div class="absolute top-20 right-0 w-64 h-64 opacity-30 hidden lg:block">
+      <img
+        src="/images/illustrations/hands-connect.png"
+        alt=""
+        class="w-full h-full object-contain"
+        aria-hidden="true"
+      />
+    </div>
+
+    <div class="container relative z-10">
+      <div class="grid lg:grid-cols-2 gap-16 lg:gap-24">
+        <!-- Formulaire -->
+        <div>
+          <p class="text-sm text-text-muted uppercase tracking-wide mb-4">Contact</p>
+          <h1 class="mb-4">Prendre rendez-vous</h1>
+          <p class="text-text-light mb-10 leading-relaxed">
+            Remplissez ce formulaire et je vous réponds dans les 24 heures
+            pour convenir d'un rendez-vous.
+          </p>
+
+          <form
+            name="contact"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            class="space-y-6"
+          >
+            <input type="hidden" name="form-name" value="contact" />
+            <p class="hidden">
+              <label>Ne pas remplir: <input name="bot-field" /></label>
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <label for="prenom" class="block text-sm font-medium mb-2">Prénom</label>
+                <input
+                  type="text"
+                  id="prenom"
+                  name="prenom"
+                  class="w-full px-4 py-3 border border-slate/20 rounded-lg focus:outline-none focus:border-secondary transition-colors"
+                  required
+                />
+              </div>
+              <div>
+                <label for="nom" class="block text-sm font-medium mb-2">Nom</label>
+                <input
+                  type="text"
+                  id="nom"
+                  name="nom"
+                  class="w-full px-4 py-3 border border-slate/20 rounded-lg focus:outline-none focus:border-secondary transition-colors"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="email" class="block text-sm font-medium mb-2">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="w-full px-4 py-3 border border-slate/20 rounded-lg focus:outline-none focus:border-secondary transition-colors"
+                required
+              />
+            </div>
+
+            <div>
+              <label for="prestation" class="block text-sm font-medium mb-2">Type de consultation</label>
+              <select
+                id="prestation"
+                name="prestation"
+                class="w-full px-4 py-3 border border-slate/20 rounded-lg focus:outline-none focus:border-secondary transition-colors bg-white"
+              >
+                <option value="">Sélectionnez une option</option>
+                <option value="en-ligne">Consultation en ligne</option>
+                <option value="cabinet">Consultation en cabinet</option>
+                <option value="couple">Thérapie de couple</option>
+                <option value="autre">Je ne sais pas encore</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="message" class="block text-sm font-medium mb-2">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                class="w-full px-4 py-3 border border-slate/20 rounded-lg focus:outline-none focus:border-secondary transition-colors resize-none"
+                placeholder="Décrivez brièvement ce qui vous amène..."
+                required
+              ></textarea>
+            </div>
+
+            <div>
+              <label class="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  name="rgpd"
+                  class="mt-1 w-4 h-4"
+                  required
+                />
+                <span class="text-sm text-text-light">
+                  J'accepte que mes données soient utilisées pour traiter ma demande.
+                </span>
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              class="px-8 py-3 border border-secondary/30 rounded-full text-text hover:border-secondary hover:bg-secondary/5 transition-all duration-300"
+            >
+              Envoyer
+            </button>
+          </form>
+        </div>
+
+        <!-- Infos -->
+        <div class="lg:pt-16">
+          <div class="space-y-8">
+            <div>
+              <h3 class="font-heading font-medium mb-2">Cabinet</h3>
+              <p class="text-text-light">
+                {siteConfig.contact.address.street}<br />
+                {siteConfig.contact.address.postalCode} {siteConfig.contact.address.city}
+              </p>
+            </div>
+
+            <div>
+              <h3 class="font-heading font-medium mb-2">Email</h3>
+              <a href={`mailto:${siteConfig.contact.email}`} class="text-text-light hover:text-secondary transition-colors">
+                {siteConfig.contact.email}
+              </a>
+            </div>
+
+            <div>
+              <h3 class="font-heading font-medium mb-2">Horaires</h3>
+              <p class="text-text-light">
+                Lundi - Vendredi : {siteConfig.hours.weekdays}<br />
+                Samedi : {siteConfig.hours.saturday}
+              </p>
+            </div>
+
+            <div class="pt-8 border-t border-slate/10">
+              <p class="text-sm text-text-muted">
+                La première consultation est sans engagement.
+                Elle nous permet de faire connaissance et de voir
+                si nous pouvons travailler ensemble.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

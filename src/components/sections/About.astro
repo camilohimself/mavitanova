@@ -1,0 +1,62 @@
+---
+import { siteConfig } from '../../config/site';
+---
+
+<section class="py-24 lg:py-32">
+  <div class="container">
+    <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <!-- Photo + Illustration -->
+      <div>
+        <div class="relative max-w-sm mx-auto lg:mx-0">
+          <img
+            src="/images/photos/charlotte-lagona.jpg"
+            alt={siteConfig.contact.name}
+            class="w-full rounded-2xl"
+            loading="lazy"
+          />
+          <!-- Decorative illustration -->
+          <img
+            src="/images/illustrations/brain-bloom.png"
+            alt=""
+            class="absolute -bottom-12 -right-12 w-32 h-32 opacity-60"
+            loading="lazy"
+            aria-hidden="true"
+          />
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div>
+        <p class="text-sm text-text-muted uppercase tracking-wide mb-4">
+          Votre thérapeute
+        </p>
+
+        <h2 class="mb-6">{siteConfig.contact.name}</h2>
+
+        <div class="space-y-6 text-text-light leading-relaxed">
+          <p>
+            Psychologue FSP diplômée de l'Université de Lausanne,
+            je vous accompagne dans un espace chaleureux et bienveillant,
+            sans jugement.
+          </p>
+
+          <p>
+            Mon approche est centrée sur l'écoute active et la compréhension,
+            afin de co-construire des solutions adaptées à votre situation.
+          </p>
+
+          <p class="text-sm text-text-muted pt-4">
+            Spécialisations : Addiction · Thérapie de couple · Sexologie · Chromothérapie
+          </p>
+        </div>
+
+        <a
+          href="/a-propos"
+          class="inline-block mt-8 text-text border-b border-text/20 pb-1 hover:border-text/40 transition-colors duration-300 text-sm"
+        >
+          En savoir plus
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

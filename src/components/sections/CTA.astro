@@ -1,0 +1,39 @@
+---
+import { siteConfig } from '../../config/site';
+---
+
+<section class="py-24 lg:py-32 bg-bg-alt">
+  <div class="container">
+    <div class="max-w-2xl mx-auto text-center">
+      <!-- Illustration -->
+      <img
+        src="/images/illustrations/hand-flower.png"
+        alt=""
+        class="w-40 h-auto mx-auto mb-10"
+        loading="lazy"
+        aria-hidden="true"
+      />
+
+      <h2 class="mb-6">
+        Prêt·e à faire le premier pas ?
+      </h2>
+
+      <p class="text-text-light mb-10 leading-relaxed">
+        La première consultation est sans engagement.
+        Elle nous permet de faire connaissance et de voir
+        si nous pouvons travailler ensemble.
+      </p>
+
+      <a
+        href={siteConfig.cta.primary.href}
+        class="inline-block px-8 py-3 border border-secondary/30 rounded-full text-text hover:border-secondary hover:bg-secondary/5 transition-all duration-300"
+      >
+        Prendre rendez-vous
+      </a>
+
+      <p class="mt-8 text-sm text-text-muted">
+        Paiement par TWINT ou espèces · Disponibilités en soirée
+      </p>
+    </div>
+  </div>
+</section>

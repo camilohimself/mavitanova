@@ -1,16 +1,21 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Journey from '../components/sections/Journey.astro';
+import WhyOnline from '../components/sections/WhyOnline.astro';
+import CTA from '../components/sections/CTA.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+  <!-- Hero avec illustration et CTA -->
+  <Hero />
+
+  <!-- Journey scroll-pin storytelling -->
+  <Journey />
+
+  <!-- Avantages de la thérapie en ligne avec icônes -->
+  <WhyOnline />
+
+  <!-- CTA final -->
+  <CTA />
+</BaseLayout>

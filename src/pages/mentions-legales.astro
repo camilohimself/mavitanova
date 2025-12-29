@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout
+  title="Mentions légales"
+  description="Mentions légales du site Ma Vita Nova - Cabinet de psychologie de Charlotte Lagona à Martigny."
+  noIndex={true}
+>
+  <section class="section">
+    <div class="container">
+      <div class="max-w-3xl mx-auto prose prose-lg">
+        <h1>Mentions légales</h1>
+
+        <h2>Éditeur du site</h2>
+        <p>
+          <strong>{siteConfig.name}</strong><br />
+          {siteConfig.contact.name}<br />
+          {siteConfig.contact.title}<br />
+          {siteConfig.contact.address.street}<br />
+          {siteConfig.contact.address.postalCode} {siteConfig.contact.address.city}, Suisse
+        </p>
+        <p>
+          Email : <a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a><br />
+          Téléphone : <a href={`tel:${siteConfig.contact.phone}`}>{siteConfig.contact.phoneDisplay}</a>
+        </p>
+
+        <h2>Hébergement</h2>
+        <p>
+          Ce site est hébergé par :<br />
+          <strong>Netlify, Inc.</strong><br />
+          44 Montgomery Street, Suite 300<br />
+          San Francisco, California 94104, USA<br />
+          <a href="https://www.netlify.com" target="_blank" rel="noopener">www.netlify.com</a>
+        </p>
+
+        <h2>Propriété intellectuelle</h2>
+        <p>
+          L'ensemble du contenu de ce site (textes, images, graphismes, logo, etc.)
+          est la propriété exclusive de {siteConfig.contact.name}, sauf mention contraire.
+          Toute reproduction, représentation, modification, publication, transmission,
+          ou dénaturation, totale ou partielle du site ou de son contenu, par quelque
+          procédé que ce soit, et sur quelque support que ce soit est interdite sans
+          autorisation préalable écrite.
+        </p>
+
+        <h2>Responsabilité</h2>
+        <p>
+          Les informations contenues sur ce site sont aussi précises que possible et
+          sont régulièrement mises à jour. Toutefois, elles ne sauraient engager la
+          responsabilité de l'éditeur quant à leur exactitude ou leur exhaustivité.
+        </p>
+        <p>
+          Les informations présentes sur ce site ne constituent en aucun cas un avis
+          médical ou un diagnostic. En cas de problème de santé, consultez un
+          professionnel de santé qualifié.
+        </p>
+
+        <h2>Secret professionnel</h2>
+        <p>
+          {siteConfig.contact.name} est tenue au secret professionnel conformément
+          au Code de déontologie des psychologues. Toute information partagée lors
+          des consultations reste strictement confidentielle.
+        </p>
+
+        <h2>Liens hypertextes</h2>
+        <p>
+          Ce site peut contenir des liens vers d'autres sites. L'éditeur ne saurait
+          être tenu responsable du contenu de ces sites externes.
+        </p>
+
+        <h2>Droit applicable</h2>
+        <p>
+          Le présent site et les mentions légales sont régis par le droit suisse.
+          En cas de litige, les tribunaux suisses seront seuls compétents.
+        </p>
+
+        <p class="text-sm text-text-muted mt-12">
+          Dernière mise à jour : {new Date().toLocaleDateString('fr-CH', { month: 'long', year: 'numeric' })}
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .prose h2 {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+  }
+  .prose p {
+    color: var(--color-text-light);
+  }
+  .prose a {
+    color: var(--color-secondary);
+  }
+</style>

@@ -1,0 +1,184 @@
+---
+import '../styles/global.css';
+import Header from '../components/common/Header.astro';
+import Footer from '../components/common/Footer.astro';
+import { siteConfig } from '../config/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  noIndex?: boolean;
+}
+
+const {
+  title = siteConfig.seo.defaultTitle,
+  description = siteConfig.seo.defaultDescription,
+  image = '/images/og-image.jpg',
+  noIndex = false,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const fullTitle = title === siteConfig.seo.defaultTitle
+  ? title
+  : siteConfig.seo.titleTemplate.replace('%s', title);
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Primary Meta Tags -->
+    <title>{fullTitle}</title>
+    <meta name="title" content={fullTitle} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={siteConfig.seo.keywords.join(', ')} />
+
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta property="og:locale" content="fr_CH" />
+    <meta property="og:site_name" content={siteConfig.name} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={fullTitle} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, Astro.site)} />
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "@id": siteConfig.url,
+      "name": siteConfig.name,
+      "description": siteConfig.description,
+      "url": siteConfig.url,
+      "telephone": siteConfig.contact.phone,
+      "email": siteConfig.contact.email,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": siteConfig.contact.address.street,
+        "addressLocality": siteConfig.contact.address.city,
+        "postalCode": siteConfig.contact.address.postalCode,
+        "addressCountry": "CH"
+      },
+      "priceRange": "CHF 80-160",
+      "openingHours": ["Mo-Fr 09:00-17:30", "Sa 09:00-12:00"],
+      "sameAs": [],
+      "provider": {
+        "@type": "Person",
+        "name": siteConfig.contact.name,
+        "jobTitle": siteConfig.contact.title
+      }
+    })} />
+
+    <!-- Preload critical fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+  </head>
+
+  <body class="min-h-screen flex flex-col">
+    <Header />
+
+    <main class="flex-1 pt-20">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <!-- GSAP + ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+      // Register ScrollTrigger plugin
+      gsap.registerPlugin(ScrollTrigger);
+    </script>
+
+    <!-- Alpine.js + Collapse plugin -->
+    <script>
+      import Alpine from 'alpinejs';
+      import collapse from '@alpinejs/collapse';
+
+      // Make Alpine available globally
+      declare global {
+        interface Window {
+          Alpine: typeof Alpine;
+        }
+      }
+
+      Alpine.plugin(collapse);
+      window.Alpine = Alpine;
+      Alpine.start();
+    </script>
+
+    <!-- Smart Scroll Script -->
+    <script>
+      const header = document.querySelector('.header');
+      const scrollThreshold = 100;
+      const scrollDelta = 50;
+      let lastScrollY = 0;
+      let ticking = false;
+
+      function updateHeader(scrollY: number) {
+        if (!header) return;
+
+        // Add scrolled class after threshold
+        header.classList.toggle('header--scrolled', scrollY > scrollThreshold);
+        header.classList.toggle('header--compact', scrollY > scrollThreshold);
+
+        // Direction-aware hide/show
+        if (Math.abs(scrollY - lastScrollY) > scrollDelta) {
+          if (scrollY > lastScrollY && scrollY > scrollThreshold * 2) {
+            header.classList.add('header--hidden');
+          } else {
+            header.classList.remove('header--hidden');
+          }
+          lastScrollY = scrollY;
+        }
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            updateHeader(window.scrollY);
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+    </script>
+
+    <!-- Scroll Animations (Intersection Observer) -->
+    <script>
+      const animatedElements = document.querySelectorAll('.animate-on-scroll, .animate-fade-up, .animate-fade-left, .animate-fade-right');
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              // Optionally unobserve after animation
+              // observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px',
+        }
+      );
+
+      animatedElements.forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout
+  title="Politique de confidentialité"
+  description="Politique de confidentialité et protection des données du site Ma Vita Nova."
+  noIndex={true}
+>
+  <section class="section">
+    <div class="container">
+      <div class="max-w-3xl mx-auto prose prose-lg">
+        <h1>Politique de confidentialité</h1>
+
+        <p class="lead">
+          La protection de vos données personnelles est une priorité pour Ma Vita Nova.
+          Cette politique explique comment nous collectons, utilisons et protégeons vos informations.
+        </p>
+
+        <h2>1. Responsable du traitement</h2>
+        <p>
+          Le responsable du traitement des données est :<br />
+          <strong>{siteConfig.contact.name}</strong><br />
+          {siteConfig.contact.address.street}<br />
+          {siteConfig.contact.address.postalCode} {siteConfig.contact.address.city}, Suisse<br />
+          Email : <a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>
+        </p>
+
+        <h2>2. Données collectées</h2>
+        <p>Nous collectons les données suivantes :</p>
+        <ul>
+          <li><strong>Via le formulaire de contact :</strong> nom, prénom, email, téléphone (optionnel), message</li>
+          <li><strong>Automatiquement :</strong> aucune donnée de navigation n'est collectée (pas de cookies de tracking)</li>
+        </ul>
+
+        <h2>3. Finalité du traitement</h2>
+        <p>Vos données sont utilisées exclusivement pour :</p>
+        <ul>
+          <li>Répondre à vos demandes de contact</li>
+          <li>Organiser et gérer les rendez-vous</li>
+          <li>Assurer le suivi thérapeutique</li>
+        </ul>
+
+        <h2>4. Base légale</h2>
+        <p>
+          Le traitement de vos données est fondé sur votre consentement (formulaire de contact)
+          et sur l'exécution d'un contrat (prise de rendez-vous et consultations).
+        </p>
+
+        <h2>5. Destinataires des données</h2>
+        <p>
+          Vos données personnelles sont traitées uniquement par {siteConfig.contact.name}
+          et ne sont jamais partagées avec des tiers, sauf obligation légale.
+        </p>
+        <p>
+          Le formulaire de contact utilise Netlify Forms. Les données transitent
+          de manière sécurisée et sont stockées dans l'Union Européenne.
+        </p>
+
+        <h2>6. Durée de conservation</h2>
+        <ul>
+          <li><strong>Demandes de contact :</strong> 1 an maximum</li>
+          <li><strong>Dossiers patients :</strong> 10 ans après la dernière consultation (obligation légale)</li>
+        </ul>
+
+        <h2>7. Vos droits</h2>
+        <p>Conformément au RGPD et à la LPD suisse, vous disposez des droits suivants :</p>
+        <ul>
+          <li><strong>Droit d'accès :</strong> obtenir une copie de vos données</li>
+          <li><strong>Droit de rectification :</strong> corriger des données inexactes</li>
+          <li><strong>Droit à l'effacement :</strong> demander la suppression de vos données</li>
+          <li><strong>Droit à la portabilité :</strong> recevoir vos données dans un format structuré</li>
+          <li><strong>Droit d'opposition :</strong> vous opposer au traitement de vos données</li>
+        </ul>
+        <p>
+          Pour exercer ces droits, contactez-nous à :
+          <a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>
+        </p>
+
+        <h2>8. Sécurité des données</h2>
+        <p>
+          Nous mettons en œuvre des mesures techniques et organisationnelles appropriées
+          pour protéger vos données contre tout accès non autorisé, modification,
+          divulgation ou destruction.
+        </p>
+        <ul>
+          <li>Connexion sécurisée (HTTPS/SSL)</li>
+          <li>Hébergement sécurisé</li>
+          <li>Accès restreint aux données</li>
+        </ul>
+
+        <h2>9. Cookies</h2>
+        <p>
+          Ce site n'utilise pas de cookies de tracking ou publicitaires.
+          Seuls des cookies techniques strictement nécessaires au fonctionnement
+          du site peuvent être utilisés.
+        </p>
+
+        <h2>10. Modifications</h2>
+        <p>
+          Cette politique de confidentialité peut être mise à jour. La date de dernière
+          modification est indiquée ci-dessous. Nous vous encourageons à la consulter régulièrement.
+        </p>
+
+        <h2>11. Contact</h2>
+        <p>
+          Pour toute question relative à cette politique ou à vos données personnelles,
+          contactez-nous à : <a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>
+        </p>
+
+        <p class="text-sm text-text-muted mt-12">
+          Dernière mise à jour : {new Date().toLocaleDateString('fr-CH', { month: 'long', year: 'numeric' })}
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .prose h2 {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+  }
+  .prose p,
+  .prose li {
+    color: var(--color-text-light);
+  }
+  .prose a {
+    color: var(--color-secondary);
+  }
+  .prose .lead {
+    font-size: 1.125rem;
+    color: var(--color-text);
+  }
+</style>

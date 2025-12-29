@@ -1,0 +1,111 @@
+---
+import SectionHeader from '../ui/SectionHeader.astro';
+
+interface Props {
+  variant?: 'full' | 'compact';
+  showHeader?: boolean;
+}
+
+const { variant = 'full', showHeader = true } = Astro.props;
+
+const faqs = [
+  {
+    question: 'Comment se déroule une consultation en ligne ?',
+    answer: 'Après votre réservation, vous recevez un email avec un lien de connexion sécurisé. À l\'heure du rendez-vous, cliquez sur le lien pour rejoindre la consultation vidéo. Aucune installation n\'est requise, un simple navigateur suffit. La séance se déroule exactement comme en cabinet, avec la même confidentialité et qualité d\'écoute.',
+  },
+  {
+    question: 'De quoi ai-je besoin pour une consultation en ligne ?',
+    answer: 'Vous avez besoin d\'un ordinateur, tablette ou smartphone avec une connexion internet stable, une webcam et un micro (intégrés dans la plupart des appareils). Choisissez un endroit calme et privé où vous ne serez pas dérangé(e) pendant la séance.',
+  },
+  {
+    question: 'La thérapie en ligne est-elle aussi efficace qu\'en présentiel ?',
+    answer: 'De nombreuses études scientifiques démontrent que la thérapie en ligne est tout aussi efficace que la thérapie en présentiel pour la plupart des problématiques. Elle offre même certains avantages : confort de votre environnement, pas de stress lié au déplacement, et plus de flexibilité horaire.',
+  },
+  {
+    question: 'Quand faut-il consulter un psychologue ?',
+    answer: 'Une consultation est recommandée lorsque vous ressentez une souffrance psychique persistante, des difficultés relationnelles, du stress, de l\'anxiété, ou simplement le besoin de parler à quelqu\'un de neutre. Il n\'est pas nécessaire d\'attendre d\'aller mal pour consulter - la prévention et le développement personnel sont aussi de bonnes raisons.',
+  },
+  {
+    question: 'Combien de séances sont nécessaires ?',
+    answer: 'Le nombre de séances varie selon chaque personne et sa problématique. Lors de la première consultation, nous établissons ensemble vos objectifs. Un suivi court peut durer quelques semaines, tandis qu\'un travail plus approfondi peut s\'étendre sur plusieurs mois. Vous restez libre d\'arrêter quand vous le souhaitez.',
+  },
+  {
+    question: 'Les consultations sont-elles remboursées ?',
+    answer: 'L\'assurance de base (LAMal) ne couvre pas les consultations chez un psychologue indépendant. Cependant, de nombreuses assurances complémentaires remboursent une partie des frais. Je vous fournis une attestation pour votre assurance. Contactez votre assureur pour connaître vos conditions de remboursement.',
+  },
+  {
+    question: 'Comment annuler ou reporter un rendez-vous ?',
+    answer: 'Vous pouvez annuler ou reporter votre rendez-vous jusqu\'à 48 heures avant la séance sans frais. Au-delà de ce délai, la séance sera facturée. Pour annuler, envoyez-moi simplement un email ou un SMS.',
+  },
+  {
+    question: 'Qu\'est-ce que la chromothérapie ?',
+    answer: 'La chromothérapie est une approche complémentaire qui utilise les couleurs pour favoriser le bien-être et l\'équilibre émotionnel. Chaque couleur a des propriétés spécifiques qui peuvent aider à apaiser, dynamiser ou harmoniser. Cette méthode peut être intégrée à un suivi psychologique classique.',
+  },
+];
+
+const displayFaqs = variant === 'compact' ? faqs.slice(0, 4) : faqs;
+---
+
+<section class="section section-alt" id="faq">
+  <div class="container">
+    {showHeader && (
+      <SectionHeader
+        badge="Questions fréquentes"
+        title="Tout ce que vous devez savoir"
+        subtitle="Les réponses aux questions les plus courantes sur la consultation psychologique."
+      />
+    )}
+
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-4" x-data="{ openIndex: null }">
+        {displayFaqs.map((faq, index) => (
+          <div
+            class="accordion-item bg-white rounded-xl overflow-hidden shadow-sm"
+            :class="{ 'open': openIndex === index }"
+          >
+            <button
+              class="accordion-trigger w-full flex items-center justify-between p-6 text-left"
+              @click={`openIndex = openIndex === ${index} ? null : ${index}`}
+              aria-expanded="false"
+            >
+              <span class="font-heading font-medium text-text pr-4">{faq.question}</span>
+              <svg
+                class="accordion-icon w-5 h-5 text-secondary flex-shrink-0 transition-transform duration-300"
+                :class={`{ 'rotate-180': openIndex === ${index} }`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div
+              class="accordion-content overflow-hidden transition-all duration-300"
+              x-show={`openIndex === ${index}`}
+              x-collapse
+            >
+              <div class="accordion-body px-6 pb-6 text-text-light leading-relaxed">
+                {faq.answer}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {variant === 'compact' && (
+        <div class="text-center mt-8">
+          <a href="/ressources#faq" class="btn btn-outline-primary">
+            Voir toutes les questions
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Alpine.js x-collapse directive alternative (pure CSS handled in global.css)
+</script>
