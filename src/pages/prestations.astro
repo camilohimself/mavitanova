@@ -2,42 +2,65 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../config/site';
 
-const prestations = [
+/**
+ * Page Prestations - Architecture UX optimisée pour la conversion
+ * Objectif: 4 demandes de RDV/semaine
+ * Structure: Hero → Identification → Services → Rassurance → CTA → FAQ
+ */
+
+const accompagnements = [
   {
     id: 1,
-    title: 'Thérapie individuelle',
-    subtitle: 'Votre espace personnel',
-    description: 'Un espace pour explorer vos difficultés, comprendre vos émotions et trouver vos propres ressources. Chaque séance est adaptée à votre rythme et vos besoins.',
+    title: 'Thérapie Individuelle',
+    description: 'Un espace pour faire le point, surmonter une épreuve ou mieux vous connaître.',
+    details: 'En cabinet ou en ligne',
     price: siteConfig.pricing.individual,
     duration: '50 min',
-    features: ['Écoute bienveillante', 'Approche personnalisée', 'Suivi régulier'],
   },
   {
     id: 2,
-    title: 'Consultation en ligne',
-    subtitle: 'La flexibilité à votre service',
-    description: 'La même qualité d\'écoute qu\'en cabinet, depuis le confort de votre domicile. Idéal pour les personnes avec des contraintes de déplacement ou d\'horaires.',
-    price: siteConfig.pricing.individual,
-    duration: '50 min',
-    features: ['Depuis chez vous', 'Horaires flexibles', 'Connexion sécurisée'],
+    title: 'Thérapie de Couple',
+    description: 'Pour rétablir la communication, surmonter une crise et retrouver une dynamique saine.',
+    details: 'En cabinet',
+    price: siteConfig.pricing.couple,
+    duration: '75 min',
   },
   {
     id: 3,
-    title: 'Thérapie de couple',
-    subtitle: 'Renforcer votre lien',
-    description: 'Un accompagnement pour améliorer votre communication, traverser les crises ou simplement renforcer votre relation. Les deux partenaires sont accueillis sans jugement.',
-    price: siteConfig.pricing.couple,
-    duration: '75 min',
-    features: ['Communication', 'Gestion des conflits', 'Espace neutre'],
+    title: 'Chromothérapie',
+    description: 'Une approche douce par les couleurs pour libérer les blocages énergétiques et émotionnels.',
+    details: 'En cabinet',
+    price: siteConfig.pricing.chromotherapy,
+    duration: '45 min',
+  },
+];
+
+const problematiques = [
+  'Gestion du stress & Anxiété',
+  'Épuisement professionnel (Burn-out)',
+  'Manque de confiance en soi',
+  'Difficultés relationnelles',
+  'Deuil & Séparation',
+  'Dépression',
+  'Soutien à la parentalité',
+  'Transitions de vie',
+];
+
+const etapes = [
+  {
+    num: '01',
+    title: 'Le premier contact',
+    text: 'La prise de rendez-vous se fait simplement en ligne ou par téléphone. Ce premier pas est le vôtre, en toute liberté.',
   },
   {
-    id: 4,
-    title: 'Chromothérapie',
-    subtitle: 'L\'énergie des couleurs',
-    description: 'Une approche complémentaire utilisant les couleurs pour favoriser le bien-être émotionnel et physique. Peut être intégrée aux séances ou proposée séparément.',
-    price: siteConfig.pricing.chromo,
-    duration: '45 min',
-    features: ['Approche holistique', 'Relaxation profonde', 'Équilibre énergétique'],
+    num: '02',
+    title: 'Notre première séance',
+    text: 'Une rencontre pour faire connaissance, exposer votre situation et définir ensemble vos objectifs, sans aucun jugement.',
+  },
+  {
+    num: '03',
+    title: 'Un cadre confidentiel',
+    text: 'Chaque échange est strictement confidentiel, protégé par le secret professionnel, pour garantir votre sécurité.',
   },
 ];
 
@@ -65,119 +88,158 @@ const faqs = [
   title="Prestations"
   description="Consultations psychologiques : thérapie individuelle, en ligne, de couple et chromothérapie. Tarifs transparents."
 >
-  <!-- Header -->
-  <section class="py-20 lg:py-28 relative overflow-hidden">
+  <!-- Section 1: Hero Émotionnel -->
+  <section class="hero-section py-24 lg:py-32 relative overflow-hidden">
+    <div class="container">
+      <div class="max-w-4xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div class="text-center lg:text-left fade-in">
+            <h1 class="text-4xl lg:text-5xl mb-6 leading-tight">
+              Votre chemin vers<br />
+              <span class="text-secondary">un mieux-être</span><br />
+              commence ici.
+            </h1>
+            <p class="text-xl text-text-light leading-relaxed">
+              Que vous traversiez une période de doute, de stress, ou que vous cherchiez
+              simplement à mieux vous comprendre, vous trouverez ici un espace d'écoute
+              sécurisant pour vous accompagner.
+            </p>
+          </div>
+          <div class="flex justify-center lg:justify-end fade-in-delay">
+            <img
+              src="/images/illustrations/path-journey.png"
+              alt=""
+              class="w-full max-w-sm opacity-90"
+              aria-hidden="true"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Identification - Problématiques -->
+  <section class="py-20 lg:py-28 bg-bg-alt">
     <div class="container">
       <div class="max-w-3xl mx-auto text-center">
-        <p class="text-sm text-secondary uppercase tracking-widest mb-4">Prestations</p>
-        <h1 class="mb-6">Accompagnement<br /><span class="text-secondary">personnalisé</span></h1>
-        <p class="text-xl text-text-light leading-relaxed">
-          Chaque parcours est unique. Découvrez les différentes formes
-          d'accompagnement que je propose.
+        <h2 class="text-3xl lg:text-4xl mb-4">Si vous vous reconnaissez...</h2>
+        <p class="text-text-light text-lg mb-12">
+          Je vous aide à naviguer à travers des défis tels que :
+        </p>
+
+        <div class="tags-grid">
+          {problematiques.map((item) => (
+            <span class="tag-item">{item}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Accompagnements -->
+  <section class="py-20 lg:py-28">
+    <div class="container">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl lg:text-4xl text-center mb-16">Mes Accompagnements</h2>
+
+        <div class="cards-grid">
+          {accompagnements.map((service) => (
+            <article class="service-card group">
+              <div class="card-inner">
+                <h3 class="text-2xl font-heading mb-3">{service.title}</h3>
+                <p class="text-text-light leading-relaxed mb-4">{service.description}</p>
+                <p class="text-sm text-text-muted mb-6">{service.details}</p>
+
+                <div class="card-footer">
+                  <div class="price-block">
+                    <span class="price-value">{service.price}</span>
+                    <span class="price-currency">{siteConfig.pricing.currency}</span>
+                    <span class="price-duration">/ {service.duration}</span>
+                  </div>
+
+                  <a href="/contact" class="card-cta group-hover:text-secondary">
+                    Choisir cet accompagnement
+                    <svg class="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <p class="text-center text-sm text-text-muted mt-12 max-w-xl mx-auto">
+          Les consultations ne sont pas remboursées par l'assurance de base.
+          Certaines assurances complémentaires peuvent prendre en charge une partie des frais.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Prestations Timeline -->
-  <section class="pb-20 lg:pb-32 relative">
-    <!-- SVG Thread Line -->
-    <div class="thread-container">
-      <svg class="thread-svg" viewBox="0 0 100 1000" preserveAspectRatio="none">
-        <path
-          class="thread-path"
-          d="M50,0
-             C50,100 20,150 50,200
-             C80,250 80,300 50,350
-             C20,400 20,450 50,500
-             C80,550 80,600 50,650
-             C20,700 50,750 50,800
-             L50,1000"
-          fill="none"
-          stroke="url(#threadGradient)"
-          stroke-width="2"
-          stroke-linecap="round"
-        />
-        <defs>
-          <linearGradient id="threadGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#E49C95" stop-opacity="0.3" />
-            <stop offset="50%" stop-color="#E49C95" stop-opacity="0.6" />
-            <stop offset="100%" stop-color="#E49C95" stop-opacity="0.3" />
-          </linearGradient>
-        </defs>
-      </svg>
-    </div>
-
-    <div class="container relative z-10">
+  <!-- Section 4: Rassurance - Comment ça marche -->
+  <section class="py-20 lg:py-28 bg-bg-alt">
+    <div class="container">
       <div class="max-w-4xl mx-auto">
-        {prestations.map((prestation, index) => (
-          <div
-            class={`prestation-card ${index % 2 === 0 ? 'card-left' : 'card-right'}`}
-            data-index={index}
-          >
-            <!-- Node on the thread -->
-            <div class="thread-node">
-              <span class="node-number">0{prestation.id}</span>
+        <h2 class="text-3xl lg:text-4xl text-center mb-16">
+          Mon approche :<br />
+          <span class="text-secondary">bienveillance, écoute et confidentialité</span>
+        </h2>
+
+        <div class="steps-grid">
+          {etapes.map((etape) => (
+            <div class="step-item">
+              <span class="step-num">{etape.num}</span>
+              <h3 class="text-xl font-heading mb-3">{etape.title}</h3>
+              <p class="text-text-light leading-relaxed">{etape.text}</p>
             </div>
-
-            <!-- Card content -->
-            <div class="card-content group">
-              <div class="card-header">
-                <div>
-                  <p class="text-sm text-secondary mb-1">{prestation.subtitle}</p>
-                  <h2 class="text-2xl lg:text-3xl font-heading">{prestation.title}</h2>
-                </div>
-                <div class="card-price">
-                  <span class="price-value">{prestation.price}</span>
-                  <span class="price-currency">{siteConfig.pricing.currency}</span>
-                  <p class="price-duration">{prestation.duration}</p>
-                </div>
-              </div>
-
-              <p class="card-description">{prestation.description}</p>
-
-              <!-- Features reveal on hover -->
-              <div class="card-features">
-                {prestation.features.map((feature) => (
-                  <span class="feature-tag">{feature}</span>
-                ))}
-              </div>
-
-              <!-- CTA -->
-              <a
-                href="/contact"
-                class="card-cta"
-              >
-                Réserver cette consultation
-                <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-              </a>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-
-      <!-- Note -->
-      <p class="max-w-2xl mx-auto mt-16 text-center text-sm text-text-muted">
-        Les consultations ne sont pas remboursées par l'assurance de base.
-        Certaines assurances complémentaires peuvent prendre en charge une partie des frais.
-      </p>
     </div>
   </section>
 
-  <!-- FAQ Accordion -->
+  <!-- Section 5: CTA Final -->
+  <section class="py-24 lg:py-32">
+    <div class="container">
+      <div class="max-w-2xl mx-auto text-center">
+        <img
+          src="/images/illustrations/hand-flower.png"
+          alt=""
+          class="w-32 h-auto mx-auto mb-8"
+          loading="lazy"
+          aria-hidden="true"
+        />
+        <h2 class="text-3xl lg:text-4xl mb-4">Prêt·e à faire le premier pas ?</h2>
+        <p class="text-text-light text-lg mb-10 leading-relaxed">
+          Je suis à votre disposition pour répondre à vos questions
+          ou pour convenir d'un premier rendez-vous.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a
+            href="/contact"
+            class="cta-button"
+          >
+            Prendre rendez-vous
+          </a>
+          <a
+            href={`mailto:${siteConfig.contact.email}`}
+            class="text-text-light hover:text-secondary transition-colors text-sm"
+          >
+            Vous avez une question ? M'envoyer un email
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: FAQ -->
   <section class="py-20 lg:py-28 bg-bg-alt">
     <div class="container">
       <div class="max-w-3xl mx-auto">
-        <div class="text-center mb-16">
-          <img
-            src="/images/illustrations/hand-listening.png"
-            alt=""
-            class="w-24 h-auto mx-auto mb-6 opacity-60"
-            aria-hidden="true"
-          />
-          <h2>Questions fréquentes</h2>
+        <div class="text-center mb-12">
+          <h2 class="text-2xl lg:text-3xl">Questions fréquentes</h2>
         </div>
 
         <div class="faq-list" x-data="{ openIndex: null }">
@@ -214,235 +276,173 @@ const faqs = [
       </div>
     </div>
   </section>
-
-  <!-- CTA Final -->
-  <section class="py-20 lg:py-28 relative overflow-hidden">
-    <div class="container">
-      <div class="max-w-2xl mx-auto text-center">
-        <img
-          src="/images/illustrations/hand-flower.png"
-          alt=""
-          class="w-40 h-auto mx-auto mb-10"
-          loading="lazy"
-          aria-hidden="true"
-        />
-        <h2 class="mb-4">Prêt·e à commencer ?</h2>
-        <p class="text-text-light mb-10 leading-relaxed">
-          La première consultation est sans engagement.
-          Elle nous permet de faire connaissance.
-        </p>
-        <a
-          href="/contact"
-          class="inline-block px-10 py-4 border border-secondary/30 rounded-full text-text hover:border-secondary hover:bg-secondary/5 transition-all duration-300"
-        >
-          Prendre rendez-vous
-        </a>
-      </div>
-    </div>
-  </section>
 </BaseLayout>
 
 <style>
-  /* Thread Container */
-  .thread-container {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 100px;
-    transform: translateX(-50%);
-    pointer-events: none;
-    z-index: 1;
+  /* Hero Animations */
+  .fade-in {
+    animation: fadeInUp 0.8s ease-out forwards;
   }
 
-  .thread-svg {
-    width: 100%;
-    height: 100%;
+  .fade-in-delay {
+    animation: fadeInUp 0.8s ease-out 0.2s forwards;
+    opacity: 0;
   }
 
-  .thread-path {
-    stroke-dasharray: 2000;
-    stroke-dashoffset: 2000;
-    animation: drawThread 3s ease-out forwards;
-  }
-
-  @keyframes drawThread {
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
     to {
-      stroke-dashoffset: 0;
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 
-  /* Prestation Cards */
-  .prestation-card {
+  /* Tags Grid - Section 2 */
+  .tags-grid {
     display: flex;
-    align-items: flex-start;
-    gap: 2rem;
-    margin-bottom: 4rem;
-    position: relative;
-  }
-
-  .prestation-card:last-child {
-    margin-bottom: 0;
-  }
-
-  .card-left {
-    flex-direction: row;
-  }
-
-  .card-right {
-    flex-direction: row-reverse;
-  }
-
-  .card-left .card-content {
-    margin-left: auto;
-    text-align: left;
-  }
-
-  .card-right .card-content {
-    margin-right: auto;
-    text-align: right;
-  }
-
-  .card-right .card-header {
-    flex-direction: row-reverse;
-  }
-
-  .card-right .card-features {
-    justify-content: flex-end;
-  }
-
-  .card-right .card-cta {
-    margin-left: auto;
-  }
-
-  /* Thread Node */
-  .thread-node {
-    position: absolute;
-    left: 50%;
-    top: 1.5rem;
-    transform: translateX(-50%);
-    width: 48px;
-    height: 48px;
-    background: var(--color-bg);
-    border: 2px solid var(--color-secondary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
+    flex-wrap: wrap;
     justify-content: center;
-    z-index: 5;
+    gap: 0.75rem;
+  }
+
+  .tag-item {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.625rem 1.25rem;
+    background: var(--color-bg);
+    border: 1px solid rgba(228, 156, 149, 0.3);
+    border-radius: 999px;
+    font-size: 0.9375rem;
+    color: var(--color-text);
     transition: all 0.3s ease;
   }
 
-  .prestation-card:hover .thread-node {
-    background: var(--color-secondary);
-    transform: translateX(-50%) scale(1.1);
+  .tag-item:hover {
+    border-color: var(--color-secondary);
+    background: rgba(228, 156, 149, 0.05);
   }
 
-  .prestation-card:hover .node-number {
-    color: white;
+  /* Cards Grid - Section 3 */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
-  .node-number {
-    font-family: var(--font-heading);
-    font-size: 0.875rem;
-    color: var(--color-secondary);
-    transition: color 0.3s ease;
+  @media (min-width: 768px) {
+    .cards-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
   }
 
-  /* Card Content */
-  .card-content {
-    width: calc(50% - 4rem);
-    padding: 2rem;
+  .service-card {
     background: var(--color-bg);
-    border-radius: 1rem;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 1.5rem;
     transition: all 0.4s ease;
   }
 
-  .card-content:hover {
-    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
-    transform: translateY(-5px);
+  .service-card:hover {
+    border-color: rgba(228, 156, 149, 0.3);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
   }
 
-  .card-header {
+  .card-inner {
+    padding: 2rem;
+    height: 100%;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    flex-direction: column;
   }
 
-  .card-price {
-    text-align: right;
-    flex-shrink: 0;
+  .card-footer {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .price-block {
+    margin-bottom: 1rem;
   }
 
   .price-value {
     font-family: var(--font-heading);
     font-size: 1.75rem;
+    font-weight: 500;
     color: var(--color-text);
   }
 
   .price-currency {
     font-size: 0.875rem;
     color: var(--color-text-muted);
+    margin-left: 0.25rem;
   }
 
   .price-duration {
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     color: var(--color-text-muted);
-    margin-top: 0.25rem;
   }
 
-  .card-description {
-    color: var(--color-text-light);
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
-  }
-
-  /* Features */
-  .card-features {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-  }
-
-  .card-content:hover .card-features {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .feature-tag {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    background: var(--color-bg-alt);
-    border-radius: 999px;
-    font-size: 0.75rem;
-    color: var(--color-text-light);
-  }
-
-  /* CTA */
   .card-cta {
     display: inline-flex;
     align-items: center;
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
+    color: var(--color-text-light);
+    transition: color 0.3s ease;
+  }
+
+  /* Steps Grid - Section 4 */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .steps-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+    }
+  }
+
+  .step-item {
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .step-item {
+      text-align: left;
+    }
+  }
+
+  .step-num {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--color-accent);
+    opacity: 0.5;
+    margin-bottom: 0.5rem;
+  }
+
+  /* CTA Button - Section 5 */
+  .cta-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    border: 1.5px solid var(--color-secondary);
+    border-radius: 999px;
     color: var(--color-secondary);
-    opacity: 0;
-    transform: translateY(10px);
+    font-size: 1rem;
     transition: all 0.3s ease;
   }
 
-  .card-content:hover .card-cta {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .card-cta:hover {
-    color: var(--color-secondary-dark);
+  .cta-button:hover {
+    background: var(--color-secondary);
+    color: white;
   }
 
   /* FAQ Styles */
@@ -492,86 +492,4 @@ const faqs = [
     color: var(--color-text-light);
     line-height: 1.7;
   }
-
-  /* Mobile adjustments */
-  @media (max-width: 1024px) {
-    .thread-container {
-      display: none;
-    }
-
-    .prestation-card {
-      flex-direction: column !important;
-    }
-
-    .thread-node {
-      position: relative;
-      left: auto;
-      top: auto;
-      transform: none;
-      margin-bottom: 1rem;
-    }
-
-    .prestation-card:hover .thread-node {
-      transform: scale(1.1);
-    }
-
-    .card-content {
-      width: 100%;
-      text-align: left !important;
-    }
-
-    .card-header {
-      flex-direction: column !important;
-      gap: 0.5rem;
-    }
-
-    .card-price {
-      text-align: left !important;
-    }
-
-    .card-features {
-      justify-content: flex-start !important;
-      opacity: 1;
-      transform: none;
-    }
-
-    .card-cta {
-      opacity: 1;
-      transform: none;
-      margin-left: 0 !important;
-    }
-  }
 </style>
-
-<script>
-  // Scroll-triggered thread animation
-  document.addEventListener('DOMContentLoaded', () => {
-    const threadPath = document.querySelector('.thread-path');
-    if (!threadPath) return;
-
-    const pathLength = (threadPath as SVGPathElement).getTotalLength();
-
-    // Set initial state
-    (threadPath as SVGPathElement).style.strokeDasharray = `${pathLength}`;
-    (threadPath as SVGPathElement).style.strokeDashoffset = `${pathLength}`;
-
-    // Animate on scroll
-    const section = document.querySelector('.thread-container')?.parentElement;
-    if (!section) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Animate the thread
-            (threadPath as SVGPathElement).style.transition = 'stroke-dashoffset 2s ease-out';
-            (threadPath as SVGPathElement).style.strokeDashoffset = '0';
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(section);
-  });
-</script>
