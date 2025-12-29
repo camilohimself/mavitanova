@@ -36,14 +36,14 @@ const accompagnements = [
 ];
 
 const problematiques = [
-  'Gestion du stress & Anxiété',
-  'Épuisement professionnel (Burn-out)',
-  'Manque de confiance en soi',
-  'Difficultés relationnelles',
-  'Deuil & Séparation',
-  'Dépression',
-  'Soutien à la parentalité',
-  'Transitions de vie',
+  { label: 'Gestion du stress & Anxiété', href: '/ressources/anxiete-stress' },
+  { label: 'Épuisement professionnel (Burn-out)', href: '/ressources/burn-out' },
+  { label: 'Manque de confiance en soi', href: null },
+  { label: 'Difficultés relationnelles', href: '/ressources/communication-couple' },
+  { label: 'Deuil & Séparation', href: null },
+  { label: 'Dépression', href: null },
+  { label: 'Thérapie de couple', href: '/ressources/therapie-couple' },
+  { label: 'Transitions de vie', href: null },
 ];
 
 const etapes = [
@@ -129,7 +129,16 @@ const faqs = [
 
         <div class="tags-grid">
           {problematiques.map((item) => (
-            <span class="tag-item">{item}</span>
+            item.href ? (
+              <a href={item.href} class="tag-item tag-link">
+                {item.label}
+                <svg class="tag-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/>
+                </svg>
+              </a>
+            ) : (
+              <span class="tag-item">{item.label}</span>
+            )
           ))}
         </div>
       </div>
@@ -323,6 +332,30 @@ const faqs = [
   .tag-item:hover {
     border-color: var(--color-secondary);
     background: rgba(228, 156, 149, 0.05);
+  }
+
+  .tag-link {
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .tag-link:hover {
+    background: var(--color-secondary);
+    color: white;
+    border-color: var(--color-secondary);
+  }
+
+  .tag-link:hover .tag-arrow {
+    opacity: 1;
+    transform: translateX(2px);
+  }
+
+  .tag-arrow {
+    width: 1rem;
+    height: 1rem;
+    margin-left: 0.5rem;
+    opacity: 0.5;
+    transition: all 0.3s ease;
   }
 
   /* Cards Grid - Section 3 */
