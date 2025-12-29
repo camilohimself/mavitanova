@@ -1,0 +1,107 @@
+---
+/**
+ * ScrollToTop - Bouton flottant discret pour remonter en haut de page
+ * Apparaît après 400px de scroll, style minimaliste coral
+ */
+---
+
+<button
+  id="scroll-to-top"
+  class="scroll-to-top"
+  aria-label="Retour en haut de page"
+  title="Retour en haut"
+>
+  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15l7-7 7 7"/>
+  </svg>
+</button>
+
+<style>
+  .scroll-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg);
+    border: 1.5px solid var(--color-secondary);
+    border-radius: 50%;
+    color: var(--color-secondary);
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 50;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .scroll-to-top:hover {
+    background: var(--color-secondary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(228, 156, 149, 0.3);
+  }
+
+  .scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* Mobile: slightly smaller and closer to edge */
+  @media (max-width: 768px) {
+    .scroll-to-top {
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 40px;
+      height: 40px;
+    }
+  }
+</style>
+
+<script>
+  function initScrollToTop() {
+    const button = document.getElementById('scroll-to-top');
+    if (!button) return;
+
+    const scrollThreshold = 400;
+
+    // Show/hide button based on scroll position
+    function toggleButton() {
+      if (window.scrollY > scrollThreshold) {
+        button.classList.add('visible');
+      } else {
+        button.classList.remove('visible');
+      }
+    }
+
+    // Scroll to top smoothly
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // Event listeners
+    window.addEventListener('scroll', toggleButton, { passive: true });
+    button.addEventListener('click', scrollToTop);
+
+    // Initial check
+    toggleButton();
+  }
+
+  // Initialize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollToTop);
+  } else {
+    initScrollToTop();
+  }
+
+  // Re-init on Astro page transitions
+  document.addEventListener('astro:page-load', initScrollToTop);
+</script>
