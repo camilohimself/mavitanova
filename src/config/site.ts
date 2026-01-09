@@ -43,18 +43,19 @@ export const siteConfig = {
 
   // SEO
   seo: {
-    titleTemplate: '%s | Ma Vita Nova - Psychologue Martigny',
-    defaultTitle: 'Ma Vita Nova - Psychologue à Martigny | Consultations en ligne',
-    defaultDescription: 'Charlotte Lagona, psychologue FSP à Martigny. Consultations en ligne et en cabinet. Thérapie individuelle, de couple, chromothérapie. Prenez rendez-vous.',
+    titleTemplate: '%s | Ma Vita Nova - Psychologue en ligne Suisse',
+    defaultTitle: 'Psychologue en ligne Suisse | Ma Vita Nova - Charlotte Lagona FSP',
+    defaultDescription: 'Consultation psychologue en ligne en Suisse. Charlotte Lagona, psychologue FSP. Séances vidéo sécurisées depuis chez vous. Thérapie individuelle et de couple.',
     keywords: [
-      'psychologue Martigny',
-      'psychologue en ligne',
-      'consultation psychologique',
+      'psychologue en ligne suisse',
+      'consultation psy en ligne',
       'thérapie en ligne Suisse',
-      'psychologue FSP',
+      'psychologue vidéo',
+      'psychologue FSP en ligne',
+      'consultation psychologique en ligne',
+      'psychologue Martigny',
       'Charlotte Lagona',
-      'thérapie de couple',
-      'chromothérapie',
+      'thérapie de couple en ligne',
     ],
   },
 
@@ -70,8 +71,8 @@ export const siteConfig = {
   // CTA
   cta: {
     primary: {
-      text: 'Réserver ma consultation',
-      href: '/contact#reservation',
+      text: 'Réserver ma séance vidéo',
+      href: '/contact',
     },
     secondary: {
       text: 'Découvrir les prestations',
