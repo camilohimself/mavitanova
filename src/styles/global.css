@@ -10,9 +10,10 @@
 @import "@fontsource/inter/400.css";
 @import "@fontsource/inter/500.css";
 @import "@fontsource/inter/600.css";
-@import "@fontsource/playfair-display/400.css";
-@import "@fontsource/playfair-display/500.css";
-@import "@fontsource/playfair-display/600.css";
+@import "@fontsource/cormorant-garamond/400.css";
+@import "@fontsource/cormorant-garamond/500.css";
+@import "@fontsource/cormorant-garamond/600.css";
+@import "@fontsource/cormorant-garamond/700.css";
 
 /* ─────────────────────────────────────────────────────────────────────────────
    CSS Custom Properties (Design Tokens)
@@ -44,14 +45,14 @@
   --color-text-muted: #9B99A1;
 
   /* Backgrounds */
-  --color-bg: #FFFFFF;
-  --color-bg-alt: #FBF7F4;
+  --color-bg: #FDFBF7;
+  --color-bg-alt: #F7F4EE;
   --color-bg-lavande: #E8F0F8;
   --color-bg-warm: #FDF5EE;
   --color-bg-dark: #2D3748;
 
   /* Fonts */
-  --font-heading: "Playfair Display", Georgia, serif;
+  --font-heading: "Cormorant Garamond", Georgia, serif;
   --font-body: "Inter", system-ui, sans-serif;
 
   /* Spacing */

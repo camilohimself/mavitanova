@@ -1,0 +1,11 @@
+# robots.txt - Ma Vita Nova
+# https://mavitanova.ch
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://mavitanova.ch/sitemap-index.xml
+
+# Crawl-delay (optional, respecté par certains bots)
+Crawl-delay: 1
