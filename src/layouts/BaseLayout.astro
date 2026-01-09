@@ -57,12 +57,13 @@ const fullTitle = title === siteConfig.seo.defaultTitle
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={new URL(image, Astro.site)} />
 
-    <!-- Schema.org JSON-LD -->
+    <!-- Schema.org JSON-LD - ProfessionalService -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
+      "@type": "ProfessionalService",
       "@id": siteConfig.url,
       "name": siteConfig.name,
+      "alternateName": "Cabinet de psychologie Ma Vita Nova",
       "description": siteConfig.description,
       "url": siteConfig.url,
       "telephone": siteConfig.contact.phone,
@@ -72,15 +73,144 @@ const fullTitle = title === siteConfig.seo.defaultTitle
         "streetAddress": siteConfig.contact.address.street,
         "addressLocality": siteConfig.contact.address.city,
         "postalCode": siteConfig.contact.address.postalCode,
+        "addressRegion": "Valais",
         "addressCountry": "CH"
       },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 46.1028,
+        "longitude": 7.0722
+      },
       "priceRange": "CHF 80-160",
-      "openingHours": ["Mo-Fr 09:00-17:30", "Sa 09:00-12:00"],
-      "sameAs": [],
-      "provider": {
-        "@type": "Person",
-        "name": siteConfig.contact.name,
-        "jobTitle": siteConfig.contact.title
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "09:00",
+          "closes": "17:30"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "09:00",
+          "closes": "12:00"
+        }
+      ],
+      "areaServed": [
+        { "@type": "City", "name": "Martigny" },
+        { "@type": "AdministrativeArea", "name": "Valais" },
+        { "@type": "Country", "name": "Suisse" }
+      ],
+      "serviceType": ["Psychothérapie", "Consultation psychologique en ligne", "Thérapie de couple", "Chromothérapie"],
+      "paymentAccepted": ["Cash", "TWINT"],
+      "currenciesAccepted": "CHF",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Consultations psychologiques",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Thérapie individuelle",
+              "description": "Consultation psychologique individuelle en cabinet ou en ligne"
+            },
+            "price": "120",
+            "priceCurrency": "CHF"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Thérapie de couple",
+              "description": "Accompagnement des couples en difficulté"
+            },
+            "price": "160",
+            "priceCurrency": "CHF"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Chromothérapie",
+              "description": "Thérapie par les couleurs"
+            },
+            "price": "80",
+            "priceCurrency": "CHF"
+          }
+        ]
+      }
+    })} />
+
+    <!-- Schema.org JSON-LD - Person (Psychologue) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": siteConfig.url + "/charlotte-lagona",
+      "name": siteConfig.contact.name,
+      "givenName": "Charlotte",
+      "familyName": "Lagona",
+      "jobTitle": "Psychologue FSP",
+      "description": "Psychologue FSP spécialisée en thérapie individuelle, de couple et consultation en ligne. Basée à Martigny, Suisse.",
+      "url": siteConfig.url + "/a-propos",
+      "image": siteConfig.url + "/images/photos/charlotte-lagona.webp",
+      "telephone": siteConfig.contact.phone,
+      "email": siteConfig.contact.email,
+      "worksFor": {
+        "@type": "ProfessionalService",
+        "name": "Ma Vita Nova",
+        "url": siteConfig.url
+      },
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Université de Lausanne",
+          "alternateName": "UNIL"
+        },
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Université de Fribourg"
+        }
+      ],
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "degree",
+          "name": "Master en psychologie clinique et psychopathologie",
+          "recognizedBy": {
+            "@type": "Organization",
+            "name": "Université de Lausanne"
+          }
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "certification",
+          "name": "Psychologue FSP",
+          "recognizedBy": {
+            "@type": "Organization",
+            "name": "Fédération Suisse des Psychologues",
+            "alternateName": "FSP",
+            "url": "https://www.psychologie.ch"
+          }
+        }
+      ],
+      "knowsAbout": [
+        "Psychothérapie",
+        "Thérapie cognitivo-comportementale",
+        "Thérapie de couple",
+        "Gestion du stress",
+        "Burn-out",
+        "Anxiété",
+        "Dépression",
+        "Addiction",
+        "Sexologie",
+        "Chromothérapie"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Martigny",
+        "addressRegion": "Valais",
+        "addressCountry": "CH"
       }
     })} />
 

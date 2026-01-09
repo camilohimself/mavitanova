@@ -133,9 +133,39 @@ const faqs = [
 ---
 
 <BaseLayout
-  title="Ressources"
-  description="Guides pratiques sur l'anxiété, le burn-out, la thérapie de couple et plus. Informations et conseils par Charlotte Lagona, psychologue FSP."
+  title="Ressources - Guides sur l'anxiété, burn-out, thérapie de couple"
+  description="Guides pratiques sur l'anxiété, le burn-out, la dépression et la thérapie de couple. Conseils par Charlotte Lagona, psychologue FSP à Martigny. Consultations en ligne."
 >
+  <!-- Schema.org FAQPage -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  })} />
+
+  <!-- Schema.org ItemList pour les guides -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Guides de santé mentale",
+    "description": "Ressources et guides pratiques sur la santé mentale par Charlotte Lagona, psychologue FSP",
+    "numberOfItems": guides.length,
+    "itemListElement": guides.map((guide, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": guide.title,
+      "description": guide.description,
+      "url": `https://mavitanova.ch/ressources/${guide.slug}`
+    }))
+  })} />
+
   <!-- Section 1: Hero -->
   <section class="py-20 lg:py-28">
     <div class="container">

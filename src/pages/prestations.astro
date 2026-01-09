@@ -103,9 +103,53 @@ const faqs = [
 ---
 
 <BaseLayout
-  title="Prestations"
-  description="Consultations psychologiques : thérapie individuelle, en ligne, de couple et chromothérapie. Tarifs transparents."
+  title="Prestations - Thérapie individuelle, de couple et en ligne"
+  description="Consultations psychologiques à Martigny et en ligne : thérapie individuelle (120 CHF), de couple (160 CHF) et chromothérapie. Psychologue FSP Charlotte Lagona."
 >
+  <!-- Schema.org FAQPage pour les questions fréquentes -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  })} />
+
+  <!-- Schema.org Service pour les prestations -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Consultation psychologique",
+    "provider": {
+      "@type": "Person",
+      "name": "Charlotte Lagona",
+      "jobTitle": "Psychologue FSP"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Suisse"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Prestations psychologiques",
+      "itemListElement": accompagnements.map(acc => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": acc.title,
+          "description": acc.description
+        },
+        "price": acc.price,
+        "priceCurrency": "CHF"
+      }))
+    }
+  })} />
+
   <!-- Section 1: Hero Émotionnel -->
   <section class="hero-section py-24 lg:py-32 relative overflow-hidden">
     <div class="container">
