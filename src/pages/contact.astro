@@ -595,16 +595,22 @@ const assurances = [
     margin-top: 0.125rem;
   }
 
-  /* Checkbox Grid */
+  /* Checkbox Grid (P2 Gemini fix: 1 col mobile → 2 col sm → 3 col md) */
   .checkbox-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr; /* 1 colonne par défaut (mobile) */
     gap: 0.5rem;
+  }
+
+  @media (min-width: 480px) {
+    .checkbox-grid {
+      grid-template-columns: repeat(2, 1fr); /* 2 colonnes gros mobiles */
+    }
   }
 
   @media (min-width: 640px) {
     .checkbox-grid {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, 1fr); /* 3 colonnes tablettes+ */
     }
   }
 

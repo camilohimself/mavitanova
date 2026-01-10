@@ -52,8 +52,8 @@ const icons: Record<string, string> = {
     <!-- Pin Section Container -->
     <div class="pin-wrapper relative" data-pin-section>
       <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-        <!-- Left: Illustration (gets pinned) - Gemini fix: libérer le trait -->
-        <div class="pin-visual lg:sticky lg:top-32 self-start" data-pin-visual>
+        <!-- Left: Illustration (gets pinned) - Hidden on mobile, visible lg+ -->
+        <div class="pin-visual hidden lg:block lg:sticky lg:top-32 self-start" data-pin-visual>
           <div class="relative max-w-md mx-auto pl-8">
             <div class="relative">
               <img
@@ -95,9 +95,14 @@ const icons: Record<string, string> = {
                 <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-bg-lavande flex items-center justify-center">
                   <span class="text-2xl font-heading font-bold text-slate">{step.number}</span>
                 </div>
-                <div>
+                <div class="flex-1">
                   <h3 class="text-xl font-heading font-medium mb-2">{step.title}</h3>
                   <p class="text-text-light leading-relaxed">{step.description}</p>
+
+                  <!-- Mobile icon (P1 Gemini fix: visible on mobile since sticky illustration is hidden) -->
+                  <div class="lg:hidden mt-4 p-4 bg-bg-alt rounded-xl flex justify-center">
+                    <svg class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" set:html={icons[step.icon]} />
+                  </div>
                 </div>
               </div>
             </div>
