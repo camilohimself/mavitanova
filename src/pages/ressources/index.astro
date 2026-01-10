@@ -446,11 +446,21 @@ const faqs = [
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 3rem;
-    height: 3rem;
-    margin-bottom: 1rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-bottom: 1.25rem;
+    /* Style organique Gemini */
     color: var(--color-secondary);
-    opacity: 0.8;
+    background-color: var(--color-bg-alt);
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; /* Forme organique */
+    transition: all 0.3s ease;
+  }
+
+  .guide-card:hover .guide-icon {
+    background-color: var(--color-secondary);
+    color: white;
+    border-radius: 50%; /* Devient rond au survol */
+    transform: rotate(-5deg);
   }
 
   .guide-link {

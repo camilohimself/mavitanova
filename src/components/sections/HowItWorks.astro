@@ -52,22 +52,21 @@ const icons: Record<string, string> = {
     <!-- Pin Section Container -->
     <div class="pin-wrapper relative" data-pin-section>
       <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-        <!-- Left: Illustration (gets pinned) -->
+        <!-- Left: Illustration (gets pinned) - Gemini fix: libérer le trait -->
         <div class="pin-visual lg:sticky lg:top-32 self-start" data-pin-visual>
-          <div class="relative max-w-md mx-auto">
-            <!-- Main illustration - hands connected to brain -->
-            <div class="relative bg-gradient-to-br from-bg-warm to-bg-lavande rounded-3xl p-8 shadow-xl">
+          <div class="relative max-w-md mx-auto pl-8">
+            <div class="relative">
               <img
                 src="/images/illustrations/illustration-parcours.webp"
                 alt="Le chemin thérapeutique - étapes vers le mieux-être"
-                class="w-full h-auto"
+                class="w-full h-auto mix-blend-multiply opacity-90 hover:opacity-100 transition-opacity duration-500"
                 loading="lazy"
               />
 
               <!-- Step number overlay -->
-              <div class="absolute top-4 right-4 w-16 h-16 rounded-full bg-white shadow-lg flex items-center justify-center">
+              <div class="absolute -top-4 -right-4 w-12 h-12 rounded-full border border-secondary/20 bg-white flex items-center justify-center">
                 <span
-                  class="step-number text-3xl font-heading font-bold text-secondary transition-all duration-300"
+                  class="step-number text-2xl font-heading font-bold text-secondary transition-all duration-300"
                   data-step-number
                 >01</span>
               </div>

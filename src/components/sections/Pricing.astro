@@ -63,10 +63,10 @@ const pricingPlans = [
       {pricingPlans.map((plan, index) => (
         <div
           class:list={[
-            'relative rounded-3xl p-8 transition-all duration-300',
+            'relative rounded-3xl p-8 transition-all duration-300 border',
             plan.featured
-              ? 'bg-secondary text-white shadow-2xl scale-105 z-10'
-              : 'bg-white shadow-lg hover:shadow-xl',
+              ? 'bg-white border-secondary shadow-lg shadow-secondary/10 scale-105 z-10'
+              : 'bg-bg-alt/50 border-transparent hover:border-secondary/30 hover:bg-white',
           ]}
         >
           {plan.featured && (
@@ -78,16 +78,10 @@ const pricingPlans = [
           )}
 
           <div class="text-center mb-6">
-            <h3 class:list={[
-              'text-xl font-heading font-medium mb-2',
-              plan.featured ? 'text-white' : 'text-text',
-            ]}>
+            <h3 class="text-xl font-heading font-medium mb-2 text-text">
               {plan.name}
             </h3>
-            <p class:list={[
-              'text-sm',
-              plan.featured ? 'text-white/80' : 'text-text-light',
-            ]}>
+            <p class="text-sm text-text-light">
               {plan.description}
             </p>
           </div>
@@ -96,21 +90,15 @@ const pricingPlans = [
             <div class="flex items-baseline justify-center gap-1">
               <span class:list={[
                 'text-5xl font-heading font-bold',
-                plan.featured ? 'text-white' : 'text-text',
+                plan.featured ? 'text-secondary' : 'text-text',
               ]}>
                 {plan.price}
               </span>
-              <span class:list={[
-                'text-lg',
-                plan.featured ? 'text-white/80' : 'text-text-light',
-              ]}>
+              <span class="text-lg text-text-light">
                 {siteConfig.pricing.currency}
               </span>
             </div>
-            <span class:list={[
-              'text-sm',
-              plan.featured ? 'text-white/60' : 'text-text-muted',
-            ]}>
+            <span class="text-sm text-text-muted">
               / {plan.duration}
             </span>
           </div>
@@ -119,20 +107,14 @@ const pricingPlans = [
             {plan.features.map((feature) => (
               <li class="flex items-start gap-3">
                 <svg
-                  class:list={[
-                    'w-5 h-5 flex-shrink-0 mt-0.5',
-                    plan.featured ? 'text-white' : 'text-secondary',
-                  ]}
+                  class="w-5 h-5 flex-shrink-0 mt-0.5 text-secondary"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
-                <span class:list={[
-                  'text-sm',
-                  plan.featured ? 'text-white/90' : 'text-text-light',
-                ]}>
+                <span class="text-sm text-text-light">
                   {feature}
                 </span>
               </li>
@@ -141,7 +123,7 @@ const pricingPlans = [
 
           <Button
             href="/contact#reservation"
-            variant={plan.featured ? 'white' : 'primary'}
+            variant="primary"
             class="w-full justify-center"
           >
             {plan.cta}

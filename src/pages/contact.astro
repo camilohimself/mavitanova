@@ -47,8 +47,10 @@ const assurances = [
   description="Prenez rendez-vous avec Charlotte Lagona, psychologue à Martigny. Consultations en ligne ou en cabinet."
 >
   <section class="py-20 lg:py-28 relative overflow-hidden">
-    <!-- Illustration décorative -->
-    <div class="absolute top-20 right-0 w-64 h-64 opacity-30 hidden lg:block">
+    <!-- Illustration décorative - Gemini fix: visible mobile en filigrane -->
+    <div class="absolute pointer-events-none z-0
+                bottom-0 left-1/2 -translate-x-1/2 w-48 opacity-10
+                lg:top-20 lg:bottom-auto lg:right-0 lg:left-auto lg:translate-x-0 lg:w-64 lg:opacity-30">
       <img
         src="/images/illustrations/contact-ecoute.webp"
         alt=""

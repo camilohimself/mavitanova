@@ -198,11 +198,13 @@ const faqs = [
           {accompagnements.map((service) => (
             <article class="service-card group">
               <div class="card-inner">
-                <div class="card-illustration mb-4">
+                <div class="card-illustration mb-6 relative">
+                  <!-- Lueur organique derrière l'illustration -->
+                  <div class="absolute inset-0 bg-secondary/5 rounded-full blur-xl transform scale-75"></div>
                   <img
                     src={service.image}
                     alt=""
-                    class="w-20 h-20 object-contain mx-auto lg:mx-0"
+                    class="relative w-24 h-24 object-contain mx-auto lg:mx-0 mix-blend-multiply opacity-90 group-hover:scale-110 transition-transform duration-500"
                     loading="lazy"
                     aria-hidden="true"
                   />
