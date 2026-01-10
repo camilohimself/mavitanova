@@ -8,9 +8,31 @@ Ce fichier fournit le contexte nécessaire pour les sessions de développement a
 
 **Objectif principal** : Générer **4 consultations EN LIGNE par semaine** (pas d'appels téléphoniques).
 
-**Status** : V1 complète - En production
+**Status** : V1 complète - Mobile optimisé - Prêt livraison
 
 ## Évolution du Projet
+
+### Session 10 Janvier 2025 - Phase 3 : Audit Mobile UX (Claude + Gemini)
+
+#### 1. Soft CTA + Prestations
+- Tous les CTAs "Réserver" → "Voir les disponibilités" (moins anxiogène)
+- "Consultation en ligne" en première position sur /prestations avec badge "Recommandé"
+
+#### 2. Corrections Mobile (Audit Gemini)
+- **Menu mobile** : `fixed inset-0 z-50 bg-bg` (était transparent/superposé)
+- **Hero** : Scroll indicator + CTA secondaire `hidden` sur mobile
+- **WhyOnline** : Grille simple avec icônes 64x64 (sticky scroll cassé)
+- **HowItWorks** : Icônes SVG dans cartes mobile (illustration sticky cachée)
+- **Pricing** : `md:scale-105` (évite overflow horizontal)
+- **Contact** : Grille checkboxes 1→2→3 colonnes responsive
+
+#### 3. Knowledge Base OSOM créée
+Capitalisation des patterns dans : `5_SHARED/_KNOWLEDGE/patterns/MOBILE-UX-PATTERNS.md`
+
+#### 4. Commits
+- `a683da2` : Soft CTA + Consultation en ligne first
+- `21910c0` : Audit Gemini V1
+- `7737207` : Audit Gemini V2
 
 ### Session 10 Janvier 2025 - Mises à jour client + Formulaire enrichi
 
