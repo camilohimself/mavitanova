@@ -7,21 +7,15 @@ interface Props {
 const { class: className = '', showText = true } = Astro.props;
 ---
 
-<div class:list={['flex items-center gap-3', className]}>
-  <!-- Logo Icon - Hands illustration -->
-  <div class="w-12 h-12 relative">
-    <svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Two hands reaching toward each other - line art style -->
-      <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-slate">
-        <!-- Left hand -->
-        <path d="M15 55 C20 45, 30 40, 40 42 C42 42, 44 44, 45 48 C46 44, 48 42, 50 42 C52 42, 54 44, 54 48 C55 44, 58 42, 60 43 C62 44, 63 47, 62 52 C65 48, 68 50, 68 54 C68 58, 65 65, 55 72 C50 76, 42 78, 35 76 C28 74, 20 68, 15 55" />
-        <!-- Right hand -->
-        <path d="M85 55 C80 45, 70 40, 60 42 C58 42, 56 44, 55 48 C54 44, 52 42, 50 42 C48 42, 46 44, 46 48 C45 44, 42 42, 40 43 C38 44, 37 47, 38 52 C35 48, 32 50, 32 54 C32 58, 35 65, 45 72 C50 76, 58 78, 65 76 C72 74, 80 68, 85 55" />
-        <!-- Connection point / touch -->
-        <circle cx="50" cy="45" r="2" fill="currentColor" class="text-secondary" />
-      </g>
-    </svg>
-  </div>
+<div class:list={['flex items-center gap-2', className]}>
+  <!-- Logo Icon - Single line art hands -->
+  <img
+    src="/images/logo-icon.webp"
+    alt="Ma Vita Nova"
+    class="h-16 w-auto"
+    width="96"
+    height="96"
+  />
 
   {showText && (
     <span class="font-heading text-xl font-medium text-text tracking-tight">
