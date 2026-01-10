@@ -13,7 +13,7 @@ export const siteConfig = {
     phone: '+41 76 690 66 73',
     phoneDisplay: '076 690 66 73',
     address: {
-      street: 'Rue de la Poste 7',
+      street: 'Rue du Simplon 4',
       city: 'Martigny',
       postalCode: '1920',
       country: 'Suisse',
@@ -29,8 +29,10 @@ export const siteConfig = {
 
   // Tarifs
   pricing: {
-    individual: 120,
-    couple: 160,
+    individual: 140,
+    individualDuration: '60 min',
+    couple: 180,
+    coupleDuration: '90 min',
     chromotherapy: 80,
     currency: 'CHF',
   },

@@ -15,7 +15,7 @@ const accompagnements = [
     description: 'Un espace pour faire le point, surmonter une épreuve ou mieux vous connaître.',
     details: 'En cabinet ou en ligne',
     price: siteConfig.pricing.individual,
-    duration: '50 min',
+    duration: siteConfig.pricing.individualDuration,
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ const accompagnements = [
     description: 'Pour rétablir la communication, surmonter une crise et retrouver une dynamique saine.',
     details: 'En cabinet',
     price: siteConfig.pricing.couple,
-    duration: '75 min',
+    duration: siteConfig.pricing.coupleDuration,
   },
   {
     id: 3,
@@ -104,7 +104,7 @@ const faqs = [
 
 <BaseLayout
   title="Prestations - Thérapie individuelle, de couple et en ligne"
-  description="Consultations psychologiques à Martigny et en ligne : thérapie individuelle (120 CHF), de couple (160 CHF) et chromothérapie. Psychologue FSP Charlotte Lagona."
+  description="Consultations psychologiques à Martigny et en ligne : thérapie individuelle (140 CHF/60min), de couple (180 CHF/90min) et chromothérapie. Psychologue FSP Charlotte Lagona."
 >
   <!-- Schema.org FAQPage pour les questions fréquentes -->
   <script type="application/ld+json" set:html={JSON.stringify({

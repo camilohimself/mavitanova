@@ -4,7 +4,57 @@ Ce fichier fournit le contexte nécessaire pour les sessions de développement a
 
 ## Résumé du Projet
 
-**Ma Vita Nova** est un site web minimaliste pour Charlotte Lagona, psychologue FSP à Martigny (Suisse). L'objectif principal est de générer **4 consultations en ligne par semaine**.
+**Ma Vita Nova** est un site web minimaliste pour Charlotte Lagona, psychologue FSP à Martigny (Suisse).
+
+**Objectif principal** : Générer **4 consultations EN LIGNE par semaine** (pas d'appels téléphoniques).
+
+**Status** : V1 complète - En production
+
+## Évolution du Projet
+
+### Session 10 Janvier 2025 - Mises à jour client + Formulaire enrichi
+
+#### 1. Informations mises à jour
+- **Nouvelle adresse** : Rue du Simplon 4, 1920 Martigny
+- **Nouveaux tarifs** :
+  - Thérapie individuelle : 140 CHF / 60 min (était 120 CHF)
+  - Thérapie de couple : 180 CHF / 90 min (était 160 CHF)
+- **Horaires** : "Consultations le samedi" au lieu de "Horaires flexibles" (pas de soirée)
+
+#### 2. Nouveau formulaire de contact enrichi (v2)
+Basé sur les besoins de Charlotte + inspiration Aepsy :
+- **Type de consultation** : Personne seule / Couple (radio cards visuelles)
+- **Modalité** : En ligne / En cabinet
+- **Préoccupations** : 14 thématiques en checkboxes (anxiété, burn-out, couple, etc.)
+- **Fréquence souhaitée** : 1x/sem, 2x/sem, 1x/mois, À définir
+- **Prise en charge** : Paiement direct ou assurance complémentaire
+- **Sélecteur d'assurance** : Liste des principales caisses suisses (conditionnel)
+
+#### 3. Fichiers modifiés
+- `src/config/site.ts` - Adresse + tarifs + durées
+- `src/components/sections/WhyOnline.astro` - Samedi au lieu de soirée
+- `src/pages/prestations.astro` - Durées dynamiques depuis config
+- `src/pages/contact.astro` - Formulaire enrichi complet
+
+### Session Janvier 2025 - Optimisation SEO/LLM + Online-First
+
+#### 1. Optimisation Performance (Build 43MB → 3.4MB)
+- Conversion de toutes les images PNG → WebP (~96% réduction)
+- Photo Charlotte optimisée : 2.5MB → 42KB
+- Ajout robots.txt et og-image.jpg
+
+#### 2. Schema.org Structured Data (Score SEO 8.1/10)
+- **BaseLayout.astro** : ProfessionalService + Person (avec credentials FSP)
+- **prestations.astro** : FAQPage + Service schemas
+- **ressources/index.astro** : FAQPage + ItemList schemas
+- **ArticleLayout.astro** : Article + BreadcrumbList schemas
+
+#### 3. Stratégie "Online-First" (Audit Gemini)
+- Hero H1 : "Retrouvez l'harmonie, **où que vous soyez**"
+- CTAs : "**Réserver ma séance vidéo**" (spécifique, orienté action)
+- Keywords SEO : "psychologue en ligne suisse" en priorité
+- Section "Comment ça marche" ajoutée à la homepage
+- Téléphone masqué pour favoriser le formulaire en ligne
 
 ## Décisions de Design Importantes
 
@@ -28,57 +78,32 @@ Cette remarque a guidé le refactoring complet du site vers une approche minimal
 
 | Fichier | Rôle |
 |---------|------|
-| `src/config/site.ts` | **Configuration centralisée** - Modifier ici pour changer contacts, tarifs, navigation |
+| `src/config/site.ts` | **Configuration centralisée** - Contacts, tarifs, navigation, SEO keywords |
 | `src/styles/global.css` | **Styles Tailwind** avec @theme CSS variables |
-| `src/layouts/BaseLayout.astro` | **Layout principal** avec SEO, fonts, Alpine.js |
-| `src/components/sections/Hero.astro` | **Hero minimaliste** - centré, une seule illustration |
-| `src/components/sections/CTA.astro` | **Section d'appel à l'action** - bouton outline subtil |
-
-## Concept Visuel "Fil Rouge"
-
-Les illustrations forment une cohérence narrative autour du thème "démêler ses pensées" :
-
-1. `hero-untangle.png` - Mains qui démêlent un fil (entrée)
-2. `mind-tangled.png` - Tête avec pensées emmêlées (problème)
-3. `hands-brain.png` - Mains + cerveau avec fleurs (solution)
-4. `hand-bloom.png` - Main avec fleur épanouie (résultat)
-
-**Prompt Nano Banana utilisé** :
-```
-Style: Ligne délicate, traits fins corail/pêche, fond transparent
-Thème: Mains humaines + fil/corde symbolisant le démêlage des pensées
-Palette: Coral (#E49C95), pêche (#EAC098), bleu doux (#92ABD3)
-```
+| `src/layouts/BaseLayout.astro` | **Layout principal** - SEO, Schema.org (ProfessionalService + Person) |
+| `src/layouts/ArticleLayout.astro` | **Layout articles** - Schema.org Article + BreadcrumbList |
+| `src/components/sections/Hero.astro` | **Hero Online-First** - "Réserver ma séance vidéo" |
+| `src/components/sections/HowItWorks.astro` | **4 étapes** pour réserver en ligne |
 
 ## Structure des Pages
 
 ### Accueil (`/`)
-4 sections uniquement :
-1. Hero - Illustration + titre + CTA simple
-2. WhyOnline - Texte + illustration (pas de cards)
-3. About - Photo + texte (pas de cards)
-4. CTA - Bouton outline subtil
-
-### Prestations (`/prestations`)
-- Liste simple des services avec tarifs
-- FAQ inline sous chaque service
-- CTA subtil en bas
-
-### À propos (`/a-propos`)
-- Photo + introduction
-- Parcours en texte fluide
-- Approche thérapeutique en liste simple
-- CTA subtil
-
-### Contact (`/contact`)
-- Formulaire Netlify (2 colonnes desktop)
-- Infos contact à droite
-- Bouton submit outline
+5 sections :
+1. **Hero** - "Retrouvez l'harmonie, où que vous soyez" + CTA vidéo
+2. **Journey** - Scroll storytelling (illustrations fil rouge)
+3. **WhyOnline** - 4 avantages de la consultation en ligne
+4. **HowItWorks** - 4 étapes pour réserver (GSAP animations)
+5. **CTA** - "Réserver ma séance vidéo"
 
 ### Ressources (`/ressources`)
-- FAQ questions fréquentes
-- Format Q/R simple
-- CTA subtil
+- 14 articles SEO (anxiété, burn-out, couple, etc.)
+- Chaque article avec Schema Article + BreadcrumbList
+- Tags cliquables avec carousel horizontal
+
+### Prestations (`/prestations`)
+- Services avec tarifs (120 CHF individuel, 160 CHF couple)
+- FAQ intégrée avec FAQPage Schema
+- Service Schema pour chaque prestation
 
 ## Palette "Soft Sunrise"
 
@@ -91,20 +116,20 @@ Palette: Coral (#E49C95), pêche (#EAC098), bleu doux (#92ABD3)
 --color-bg-alt: #F7F4EE;      /* Fond sections alt */
 ```
 
-## Styles de CTA Approuvés
+## Concept Visuel "Fil Rouge"
 
-### Lien souligné (préféré)
-```html
-<a href="/contact" class="inline-block text-text border-b-2 border-secondary/40 pb-1 hover:border-secondary transition-colors duration-300">
-  Prendre rendez-vous
-</a>
+Les illustrations forment une cohérence narrative autour du thème "démêler ses pensées" :
+
+1. `hero-noeud.webp` - Mains qui démêlent un fil (entrée)
+2. `mind-tangled.webp` - Tête avec pensées emmêlées (problème)
+3. `hands-brain.webp` - Mains + cerveau avec fleurs (solution)
+4. `hand-flower.webp` - Main avec fleur épanouie (résultat)
+
+**Prompt Nano Banana utilisé** :
 ```
-
-### Bouton outline (formulaires)
-```html
-<button class="px-8 py-3 border border-secondary/30 rounded-full text-text hover:border-secondary hover:bg-secondary/5 transition-all duration-300">
-  Envoyer
-</button>
+Style: Ligne délicate, traits fins corail/pêche, fond transparent
+Thème: Mains humaines + fil/corde symbolisant le démêlage des pensées
+Palette: Coral (#E49C95), pêche (#EAC098), bleu doux (#92ABD3)
 ```
 
 ## À Éviter
@@ -114,25 +139,52 @@ Palette: Coral (#E49C95), pêche (#EAC098), bleu doux (#92ABD3)
 3. **Cards avec ombres fortes** (trop chargé)
 4. **Emojis dans le contenu** (pas professionnel)
 5. **Multiples CTA par section** (confusion)
+6. **Téléphone visible** (favoriser le formulaire en ligne)
+
+## Stack Technique
+
+- **Astro 5.x** - Framework SSG
+- **Tailwind CSS 4.x** - Utilise `@theme` et CSS variables
+- **Alpine.js** - Menu mobile, accordéons
+- **GSAP + ScrollTrigger** - Animations scroll (HowItWorks, Journey)
+- **Netlify Forms** - Formulaire contact (`data-netlify="true"`)
 
 ## Commandes Utiles
 
 ```bash
-npm run dev      # Développement local
+npm run dev      # Développement local (localhost:4321)
 npm run build    # Build production
 npm run preview  # Prévisualiser le build
 ```
 
-## Dépendances Clés
+## Prochaines Étapes (Phase 2)
 
-- **Astro 5.x** - Framework SSG
-- **Tailwind CSS 4.x** - Utilise `@theme` et CSS variables
-- **Alpine.js** - Menu mobile uniquement
-- **Netlify Forms** - Formulaire contact (attribut `data-netlify="true"`)
+### Court terme
+- [ ] Configurer domaine mavitanova.ch sur Netlify
+- [ ] Ajouter Google Analytics / Plausible
+- [ ] Tester formulaire Netlify en production
 
-## Notes pour Prochaines Sessions
+### Moyen terme
+- [ ] Intégrer système de booking (Cal.com / Calendly)
+- [ ] Ajouter témoignages anonymisés (si autorisé)
+- [ ] Créer nouveaux articles SEO ciblés
 
-1. **Déploiement Netlify** à configurer
-2. **Photo Charlotte** à optimiser (actuellement 2.6MB)
-3. **Schema.org** pour SEO local (LocalBusiness)
-4. **Google Fonts** - Cormorant Garamond + Inter déjà configurées
+### Long terme (Phase 2 - CRM)
+- [ ] Dashboard patient inspiré Aepsy
+- [ ] Gestion RDV et paiements
+- [ ] Voir `../_docs/references/aepsy-benchmark/`
+
+## Scores Audit Gemini (Janvier 2025)
+
+| Critère | Score |
+|---------|-------|
+| Conversion RDV en ligne | 7/10 → amélioré |
+| Schemas Structured Data | 8/10 |
+| SEO Technique | 8.5/10 |
+| Optimisation LLM | 9/10 |
+| Contenu & Copywriting | 8/10 |
+| **Score Global** | **8.1/10** |
+
+---
+
+*Dernière mise à jour : 9 Janvier 2025*
