@@ -48,8 +48,8 @@ const benefits = [
 
     <!-- Content Grid -->
     <div class="lg:flex lg:gap-16">
-      <!-- Left: Steps (scrollable) -->
-      <div class="steps-container lg:w-1/2 space-y-32 lg:space-y-48">
+      <!-- Left: Steps (scrollable) - Desktop only -->
+      <div class="steps-container hidden lg:block lg:w-1/2 space-y-32 lg:space-y-48">
         {benefits.map((b, index) => (
           <div
             class="step-item"
@@ -81,23 +81,26 @@ const benefits = [
         </div>
       </div>
 
-      <!-- Mobile: Bandeau horizontal discret (Gemini fix) -->
-      <div class="lg:hidden order-first mb-8">
-        <div class="sticky top-20 z-10">
-          <div class="relative w-full h-48 flex items-center justify-center bg-bg/95 backdrop-blur-sm border-b border-secondary/10">
-            {benefits.map((b, index) => (
-              <img
-                src={b.image}
-                alt={b.title}
-                class:list={[
-                  "step-image-mobile absolute inset-0 w-full h-full object-contain p-2 transition-all duration-500",
-                  index === 0 ? "opacity-100" : "opacity-0",
-                ]}
-                data-index={index}
-              />
-            ))}
+      <!-- Mobile: Grille simple avec icônes toujours visibles (P2 Gemini fix) -->
+      <div class="lg:hidden flex flex-col gap-12 mt-12">
+        {benefits.map((b) => (
+          <div class="flex flex-col gap-4">
+            <div class="flex items-center gap-4">
+              <div class="bg-bg-alt rounded-2xl p-4 w-16 h-16 flex items-center justify-center shrink-0">
+                <img
+                  src={b.image}
+                  alt={b.title}
+                  class="w-full h-full object-contain block opacity-100"
+                />
+              </div>
+              <h3 class="text-xl font-heading font-medium">{b.title}</h3>
+            </div>
+            <p class="text-text-light text-lg leading-relaxed pl-20">
+              <span class="text-secondary font-bold text-sm block mb-1">{b.id}</span>
+              {b.description}
+            </p>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   </div>

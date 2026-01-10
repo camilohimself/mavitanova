@@ -31,9 +31,10 @@ import { siteConfig } from '../../config/site';
           >
             Voir les disponibilités
           </a>
+          <!-- P1 Gemini fix: hidden on mobile to reduce cognitive load -->
           <a
             href="#journey"
-            class="inline-flex items-center justify-center gap-2 text-text-light hover:text-text transition-colors"
+            class="hidden sm:inline-flex items-center justify-center gap-2 text-text-light hover:text-text transition-colors"
           >
             Découvrir mon approche
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -55,8 +56,8 @@ import { siteConfig } from '../../config/site';
     </div>
   </div>
 
-  <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-text-muted hero-animate" style="--delay: 4">
+  <!-- Scroll indicator (P1 Gemini fix: hidden on mobile) -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-2 text-text-muted hero-animate" style="--delay: 4">
     <span class="text-xs uppercase tracking-widest">Scroll</span>
     <div class="scroll-indicator">
       <div class="scroll-indicator-dot"></div>
