@@ -11,12 +11,13 @@ import { siteConfig } from '../config/site';
 const accompagnements = [
   {
     id: 1,
-    title: 'Thérapie Individuelle',
-    description: 'Un espace pour faire le point, surmonter une épreuve ou mieux vous connaître.',
-    details: 'En cabinet ou en ligne',
+    title: 'Consultation en ligne',
+    description: 'Depuis chez vous, un accompagnement aussi efficace qu\'en cabinet. Connexion vidéo sécurisée.',
+    details: 'Recommandé',
     price: siteConfig.pricing.individual,
     duration: siteConfig.pricing.individualDuration,
     image: '/images/illustrations/presta-online.webp',
+    featured: true,
   },
   {
     id: 2,
@@ -196,7 +197,17 @@ const faqs = [
 
         <div class="cards-grid">
           {accompagnements.map((service) => (
-            <article class="service-card group">
+            <article class:list={[
+              'service-card group relative',
+              service.featured && 'service-card--featured'
+            ]}>
+              {service.featured && (
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
+                  <span class="bg-secondary text-white text-xs font-medium px-3 py-1 rounded-full">
+                    Recommandé
+                  </span>
+                </div>
+              )}
               <div class="card-inner">
                 <div class="card-illustration mb-6 relative">
                   <!-- Lueur organique derrière l'illustration -->
@@ -422,7 +433,7 @@ const faqs = [
             href="/contact"
             class="cta-button"
           >
-            Prendre rendez-vous
+            Voir les disponibilités
           </a>
           <a
             href={`mailto:${siteConfig.contact.email}`}
@@ -483,6 +494,21 @@ const faqs = [
     border-color: rgba(228, 156, 149, 0.3);
     box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08);
     transform: translateY(-4px);
+  }
+
+  .service-card--featured {
+    border-color: var(--color-secondary);
+    box-shadow: 0 8px 32px -8px rgba(228, 156, 149, 0.2);
+  }
+
+  @media (min-width: 768px) {
+    .service-card--featured {
+      transform: scale(1.02);
+    }
+
+    .service-card--featured:hover {
+      transform: scale(1.02) translateY(-4px);
+    }
   }
 
   .card-inner {

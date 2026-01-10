@@ -73,7 +73,7 @@ export const siteConfig = {
   // CTA
   cta: {
     primary: {
-      text: 'Réserver ma séance vidéo',
+      text: 'Voir les disponibilités',
       href: '/contact',
     },
     secondary: {
