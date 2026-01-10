@@ -16,6 +16,7 @@ const accompagnements = [
     details: 'En cabinet ou en ligne',
     price: siteConfig.pricing.individual,
     duration: siteConfig.pricing.individualDuration,
+    image: '/images/illustrations/presta-online.webp',
   },
   {
     id: 2,
@@ -24,6 +25,7 @@ const accompagnements = [
     details: 'En cabinet',
     price: siteConfig.pricing.couple,
     duration: siteConfig.pricing.coupleDuration,
+    image: '/images/illustrations/presta-couple.webp',
   },
   {
     id: 3,
@@ -32,6 +34,7 @@ const accompagnements = [
     details: 'En cabinet',
     price: siteConfig.pricing.chromotherapy,
     duration: '45 min',
+    image: '/images/illustrations/presta-chroma.webp',
   },
 ];
 
@@ -195,6 +198,15 @@ const faqs = [
           {accompagnements.map((service) => (
             <article class="service-card group">
               <div class="card-inner">
+                <div class="card-illustration mb-4">
+                  <img
+                    src={service.image}
+                    alt=""
+                    class="w-20 h-20 object-contain mx-auto lg:mx-0"
+                    loading="lazy"
+                    aria-hidden="true"
+                  />
+                </div>
                 <h3 class="text-2xl font-heading mb-3">{service.title}</h3>
                 <p class="text-text-light leading-relaxed mb-4">{service.description}</p>
                 <p class="text-sm text-text-muted mb-6">{service.details}</p>
