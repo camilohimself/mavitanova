@@ -1,0 +1,154 @@
+---
+/**
+ * GoogleAnalytics.astro
+ * Intégration GA4 avec Google Consent Mode v2 (conforme LPD Suisse)
+ *
+ * Fonctionnalités :
+ * - Consent Mode v2 : respecte le choix utilisateur
+ * - Tracking CTA : événements personnalisés pour les conversions
+ * - Integration avec CookieBanner via événement 'cookie-consent'
+ */
+
+interface Props {
+  measurementId: string;
+}
+
+const { measurementId } = Astro.props;
+---
+
+<!-- Google Analytics 4 avec Consent Mode v2 -->
+<script is:inline define:vars={{ measurementId }}>
+  // Configuration initiale - Consent Mode v2
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+
+  // Définir le consentement par défaut (avant chargement GA4)
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'wait_for_update': 500 // Attend 500ms pour update consent
+  });
+
+  // Configuration GA4
+  gtag('js', new Date());
+  gtag('config', measurementId, {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure',
+    'send_page_view': true
+  });
+
+  // Fonction pour mettre à jour le consentement
+  function updateConsent(hasConsent) {
+    gtag('consent', 'update', {
+      'analytics_storage': hasConsent ? 'granted' : 'denied'
+    });
+
+    if (hasConsent) {
+      // Envoyer un événement de consentement accordé
+      gtag('event', 'consent_granted', {
+        'event_category': 'engagement',
+        'event_label': 'cookie_banner'
+      });
+    }
+  }
+
+  // Vérifier le consentement existant au chargement
+  document.addEventListener('DOMContentLoaded', function() {
+    const consent = localStorage.getItem('cookie-consent');
+    if (consent) {
+      try {
+        const consentData = JSON.parse(consent);
+        if (consentData.value === 'accepted') {
+          updateConsent(true);
+        }
+      } catch (e) {
+        console.warn('GA4: Could not parse consent data');
+      }
+    }
+  });
+
+  // Écouter les nouveaux consentements
+  window.addEventListener('cookie-consent', function(e) {
+    updateConsent(e.detail.consent === 'accepted');
+  });
+
+  // === TRACKING HELPERS ===
+
+  // Exposer les fonctions de tracking globalement
+  window.trackEvent = function(eventName, params) {
+    gtag('event', eventName, params || {});
+  };
+
+  // Tracking CTA "Voir les disponibilités"
+  window.trackCTA = function(ctaLocation) {
+    gtag('event', 'cta_click', {
+      'event_category': 'conversion',
+      'event_label': ctaLocation,
+      'cta_text': 'Voir les disponibilités'
+    });
+  };
+
+  // Tracking soumission formulaire
+  window.trackFormSubmit = function(formType) {
+    gtag('event', 'form_submit', {
+      'event_category': 'conversion',
+      'event_label': formType || 'contact'
+    });
+  };
+
+  // Tracking clic contact (email, téléphone)
+  window.trackContactClick = function(contactType) {
+    gtag('event', 'contact_click', {
+      'event_category': 'engagement',
+      'event_label': contactType
+    });
+  };
+</script>
+
+<!-- Charger le script GA4 (async pour ne pas bloquer le rendu) -->
+<script is:inline src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`} async></script>
+
+<!-- Data attributes pour le tracking automatique des CTA -->
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Auto-tracking des CTA avec data-track-cta
+    document.querySelectorAll('[data-track-cta]').forEach(function(el) {
+      el.addEventListener('click', function() {
+        const location = this.getAttribute('data-track-cta');
+        if (window.trackCTA) {
+          window.trackCTA(location);
+        }
+      });
+    });
+
+    // Auto-tracking des liens email
+    document.querySelectorAll('a[href^="mailto:"]').forEach(function(el) {
+      el.addEventListener('click', function() {
+        if (window.trackContactClick) {
+          window.trackContactClick('email');
+        }
+      });
+    });
+
+    // Auto-tracking des liens téléphone
+    document.querySelectorAll('a[href^="tel:"]').forEach(function(el) {
+      el.addEventListener('click', function() {
+        if (window.trackContactClick) {
+          window.trackContactClick('phone');
+        }
+      });
+    });
+
+    // Auto-tracking formulaires avec data-track-form
+    document.querySelectorAll('form[data-track-form]').forEach(function(el) {
+      el.addEventListener('submit', function() {
+        const formType = this.getAttribute('data-track-form');
+        if (window.trackFormSubmit) {
+          window.trackFormSubmit(formType);
+        }
+      });
+    });
+  });
+</script>
