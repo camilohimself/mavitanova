@@ -1,0 +1,258 @@
+---
+/**
+ * CookieBanner.astro
+ * Bannière de consentement cookies conforme LPD Suisse 2025
+ *
+ * Caractéristiques :
+ * - Mobile-first, sobre, minimaliste
+ * - Conforme LPD : boutons Accepter/Refuser de même importance
+ * - Pas de dark patterns
+ * - Sauvegarde en localStorage
+ * - Intégré à la palette Soft Sunrise
+ */
+
+interface Props {
+  privacyUrl?: string;
+}
+
+const { privacyUrl = '/politique-confidentialite' } = Astro.props;
+---
+
+<div
+  id="cookie-banner"
+  x-data="cookieConsent()"
+  x-show="isVisible"
+  x-transition:enter="transition ease-out duration-300"
+  x-transition:enter-start="opacity-0 translate-y-4"
+  x-transition:enter-end="opacity-100 translate-y-0"
+  x-transition:leave="transition ease-in duration-200"
+  x-transition:leave-start="opacity-100 translate-y-0"
+  x-transition:leave-end="opacity-0 translate-y-4"
+  x-cloak
+  class="cookie-banner"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="cookie-title"
+  aria-describedby="cookie-description"
+>
+  <div class="cookie-banner-inner">
+    <!-- Icône cookie (sobre) -->
+    <div class="cookie-icon" aria-hidden="true">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+    </div>
+
+    <!-- Contenu -->
+    <div class="cookie-content">
+      <p id="cookie-description" class="cookie-text">
+        Ce site utilise des cookies essentiels pour son fonctionnement.
+        <a :href="privacyUrl" class="cookie-link">En savoir plus</a>
+      </p>
+    </div>
+
+    <!-- Actions (LPD: boutons de même importance visuelle) -->
+    <div class="cookie-actions">
+      <button
+        @click="decline()"
+        class="cookie-btn cookie-btn-decline"
+        type="button"
+      >
+        Refuser
+      </button>
+      <button
+        @click="accept()"
+        class="cookie-btn cookie-btn-accept"
+        type="button"
+      >
+        Accepter
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Masquer avant Alpine.js */
+  [x-cloak] {
+    display: none !important;
+  }
+
+  .cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    padding: 0.75rem 1rem;
+    background-color: var(--color-bg);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .cookie-banner-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  /* Mobile: stack vertical */
+  @media (min-width: 640px) {
+    .cookie-banner-inner {
+      flex-direction: row;
+      gap: 1rem;
+    }
+  }
+
+  .cookie-icon {
+    display: none;
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    background: var(--color-bg-alt);
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 640px) {
+    .cookie-icon {
+      display: flex;
+    }
+  }
+
+  .cookie-content {
+    flex: 1;
+    text-align: center;
+  }
+
+  @media (min-width: 640px) {
+    .cookie-content {
+      text-align: left;
+    }
+  }
+
+  .cookie-text {
+    font-size: 0.8125rem;
+    color: var(--color-text-light);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .cookie-link {
+    color: var(--color-secondary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .cookie-link:hover {
+    color: var(--color-secondary-dark);
+  }
+
+  .cookie-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    width: 100%;
+  }
+
+  @media (min-width: 640px) {
+    .cookie-actions {
+      width: auto;
+    }
+  }
+
+  .cookie-btn {
+    flex: 1;
+    padding: 0.625rem 1rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+  }
+
+  @media (min-width: 640px) {
+    .cookie-btn {
+      flex: none;
+      padding: 0.5rem 1.25rem;
+    }
+  }
+
+  /* LPD Compliant: boutons de même importance visuelle */
+  .cookie-btn-decline {
+    background: transparent;
+    border-color: var(--color-text-muted);
+    color: var(--color-text-light);
+  }
+
+  .cookie-btn-decline:hover {
+    border-color: var(--color-text);
+    color: var(--color-text);
+    background: var(--color-bg-alt);
+  }
+
+  .cookie-btn-accept {
+    background: var(--color-secondary);
+    color: white;
+    border-color: var(--color-secondary);
+  }
+
+  .cookie-btn-accept:hover {
+    background: var(--color-secondary-dark);
+    border-color: var(--color-secondary-dark);
+  }
+</style>
+
+<script define:vars={{ privacyUrl }}>
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('cookieConsent', () => ({
+      isVisible: false,
+      privacyUrl: privacyUrl,
+
+      init() {
+        // Vérifier si le consentement a déjà été donné
+        const consent = localStorage.getItem('cookie-consent');
+        if (!consent) {
+          // Afficher la bannière après un court délai (UX)
+          setTimeout(() => {
+            this.isVisible = true;
+          }, 1000);
+        }
+      },
+
+      accept() {
+        this.saveConsent('accepted');
+        this.isVisible = false;
+        // Ici on pourrait activer les analytics si besoin
+        this.onConsentGiven('accepted');
+      },
+
+      decline() {
+        this.saveConsent('declined');
+        this.isVisible = false;
+        this.onConsentGiven('declined');
+      },
+
+      saveConsent(value) {
+        const consentData = {
+          value: value,
+          timestamp: new Date().toISOString(),
+          version: '1.0'
+        };
+        localStorage.setItem('cookie-consent', JSON.stringify(consentData));
+      },
+
+      onConsentGiven(type) {
+        // Event personnalisé pour intégrations futures (analytics, etc.)
+        window.dispatchEvent(new CustomEvent('cookie-consent', {
+          detail: { consent: type }
+        }));
+      }
+    }));
+  });
+</script>
