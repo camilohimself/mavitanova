@@ -433,7 +433,6 @@ const assurancesData = getAssurancesSorted();
                   <label for="formule" class="form-label">Votre formule</label>
                   <select
                     id="formule"
-                    name="assurance-formule"
                     x-model="selectedFormuleIndex"
                     @change="updateCouverture()"
                     class="form-input"
@@ -446,9 +445,9 @@ const assurancesData = getAssurancesSorted();
                   </select>
                 </div>
 
-                <!-- Hidden input pour Netlify -->
+                <!-- Hidden inputs pour Netlify (noms lisibles) -->
                 <input type="hidden" name="assurance" :value="selectedAssurance?.nom || ''" />
-                <input type="hidden" name="assurance-id" :value="selectedAssurance?.id || ''" />
+                <input type="hidden" name="assurance-formule-nom" :value="getFormuleName()" />
 
                 <!-- Résultat couverture -->
                 <div x-show="couvertureResult" x-collapse>
@@ -1042,6 +1041,14 @@ const assurancesData = getAssurancesSorted();
         this.couvertureNote = note || '';
         this.needsPrescription = prescription === 'oui';
         this.couvertureResult = 'couvert';
+      },
+
+      // Get formula name for form submission
+      getFormuleName() {
+        if (!this.selectedAssurance || !this.selectedFormuleIndex) return '';
+        if (this.selectedFormuleIndex === 'autre') return 'Formule inconnue';
+        const formule = this.selectedAssurance.formules[parseInt(this.selectedFormuleIndex)];
+        return formule ? formule.nom : '';
       },
 
       // Reset when changing answer
