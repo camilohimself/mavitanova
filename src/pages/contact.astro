@@ -339,7 +339,6 @@ const assurancesData = getAssurancesSorted();
                     </p>
                   </div>
                 </div>
-                <input type="hidden" name="assurance" value="paiement-direct" />
               </div>
 
               <!-- Message si JE NE SAIS PAS -->
@@ -367,7 +366,6 @@ const assurancesData = getAssurancesSorted();
                     </ul>
                   </div>
                 </div>
-                <input type="hidden" name="assurance" value="a-verifier" />
               </div>
 
               <!-- Checker si OUI -->
@@ -444,10 +442,6 @@ const assurancesData = getAssurancesSorted();
                     <option value="autre">Je ne connais pas ma formule</option>
                   </select>
                 </div>
-
-                <!-- Hidden inputs pour Netlify (noms lisibles) -->
-                <input type="hidden" name="assurance" :value="selectedAssurance?.nom || ''" />
-                <input type="hidden" name="assurance-formule-nom" :value="getFormuleName()" />
 
                 <!-- Résultat couverture -->
                 <div x-show="couvertureResult" x-collapse>
@@ -526,6 +520,11 @@ const assurancesData = getAssurancesSorted();
                   Les informations ci-dessus sont données à titre indicatif.
                 </p>
               </div>
+
+              <!-- Hidden inputs pour Netlify (centralisés pour tous les cas) -->
+              <input type="hidden" name="assurance-statut" :value="getAssuranceStatut()" />
+              <input type="hidden" name="assurance-nom" :value="getAssuranceNom()" />
+              <input type="hidden" name="assurance-formule" :value="getFormuleName()" />
             </fieldset>
 
             <!-- Section 7: Message -->
@@ -1043,12 +1042,27 @@ const assurancesData = getAssurancesSorted();
         this.couvertureResult = 'couvert';
       },
 
+      // Get assurance status for form submission
+      getAssuranceStatut() {
+        if (this.hasInsurance === 'non') return 'Paiement direct';
+        if (this.hasInsurance === 'unknown') return 'À vérifier ensemble';
+        if (this.hasInsurance === 'oui') return 'Assurance complémentaire';
+        return '';
+      },
+
+      // Get assurance name for form submission
+      getAssuranceNom() {
+        if (this.hasInsurance !== 'oui') return '-';
+        return this.selectedAssurance?.nom || 'Non sélectionnée';
+      },
+
       // Get formula name for form submission
       getFormuleName() {
-        if (!this.selectedAssurance || !this.selectedFormuleIndex) return '';
+        if (this.hasInsurance !== 'oui') return '-';
+        if (!this.selectedAssurance || !this.selectedFormuleIndex) return 'Non sélectionnée';
         if (this.selectedFormuleIndex === 'autre') return 'Formule inconnue';
         const formule = this.selectedAssurance.formules[parseInt(this.selectedFormuleIndex)];
-        return formule ? formule.nom : '';
+        return formule ? formule.nom : 'Non sélectionnée';
       },
 
       // Reset when changing answer
